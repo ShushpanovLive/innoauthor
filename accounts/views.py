@@ -61,3 +61,4 @@ def accounts(request):
     else:
         form = RegisterUserForm()
     return render(request, 'accounts/register.html', {'form': form})
+

@@ -16,6 +16,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import include, path
+from indexglav.views import liderplatform
 from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
@@ -26,6 +27,7 @@ from . import settings
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('liderplatform/', liderplatform, name='liderplatform'),
     path('users/', include('users.urls', namespace="users")),
     path('', include('startpage.urls', namespace="startpage")),
     path('news/', include('indexglav.urls', namespace="indexglav")),
@@ -34,7 +36,7 @@ urlpatterns = [
     path('exite/', include('exite.urls', namespace="exite")),
     path('accounts/', include('accounts.urls', namespace="accounts")),
     path('comments/', include('comments.urls', namespace="comments")),
-    
+
     # Password reset URLs
     path('password-reset/', auth_views.PasswordResetView.as_view(template_name='password_reset.html'), name='password_reset'),
     path('password-reset/done/', auth_views.PasswordResetDoneView.as_view(template_name='password_reset_done.html'), 

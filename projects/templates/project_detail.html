@@ -131,6 +131,27 @@
         .modal-backdrop.show {
             opacity: 0.5;
         }
+	.certificate-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 12px 18px;
+            border: 1px solid #EE8634;
+            border-radius: 10px;
+            background: #11213B;
+            color: #FFFFFF;
+            text-decoration: none;
+            font-weight: 700;
+            line-height: 1;
+            transition: all 0.2s ease;
+	}
+
+	.certificate-btn:hover {
+	    background: #EE8634;
+	    color: #11213B;
+            transform: translateY(-2px);
+	    box-shadow: 0 8px 20px rgba(238, 134, 52, 0.25);
+	}
     </style>
 </head>
 
@@ -269,7 +290,76 @@
                                     </div>
                                 </div>
                             </div>
-							<h5><font color="#11213B">Поделиться:</font></h5>
+
+{% if is_owner or request.user.is_staff or request.user.is_superuser %}
+    <a
+        href="{% url 'projects:project_certificate' project.slug %}"
+        class="certificate-btn"
+        target="_blank"
+        rel="noopener"
+    >
+        Скачать сертификат PDF
+    </a>
+{% endif %}
+
+{% if project.status == 'concept' %}
+<a
+    href="{% url 'projects:step1' %}"
+    class="certificate-btn"
+    target="_blank"
+    rel="noopener"
+>
+    Траектория развития
+</a>
+{% elif project.status == 'launch' %}
+<a
+    href="{% url 'projects:step2' %}"
+    class="certificate-btn"
+    target="_blank"
+    rel="noopener"
+>
+    Траектория развития
+</a>
+{% elif project.status == 'ready_project' %}
+<a
+    href="{% url 'projects:step3' %}"
+    class="certificate-btn"
+    target="_blank"
+    rel="noopener"
+>
+    Траектория развития
+</a>
+{% elif project.status == 'business' %}
+<a
+    href="{% url 'projects:step4' %}"
+    class="certificate-btn"
+    target="_blank"
+    rel="noopener"
+>
+    Траектория развития
+</a>
+{% elif project.status == 'prospective' %}
+<a
+    href="{% url 'projects:step5' %}"
+    class="certificate-btn"
+    target="_blank"
+    rel="noopener"
+>
+    Траектория развития
+</a>
+{% else %}
+<a
+    href="{% url 'projects:step1' %}"
+    class="certificate-btn"
+    target="_blank"
+    rel="noopener"
+>
+    Траектория развития
+</a>
+{% endif %}
+<hr>
+
+							<h5><font color="#11213B">О проекте:</font></h5>
                             <div class="project-description mb-4">
                                 <font color="#11213B">{{ project.description|linebreaks }}</font>
                             </div>
@@ -713,15 +803,15 @@
                                         <div class="modal-content">
                                             <div class="modal-header">
                                                 <h5 class="modal-title"
-                                                    id="deleteProjectModalLabelAdmin{{ project.id }}">Подтвердите
-                                                    удаление (admin)</h5>
+                                                    id="deleteProjectModalLabelAdmin{{ project.id }}"><font color="#11213B">Подтвердите
+                                                    удаление (admin)</font></h5>
                                                 <button type="button" class="close" data-dismiss="modal"
                                                     aria-label="Close">
                                                     <span aria-hidden="true">&times;</span>
                                                 </button>
                                             </div>
                                             <div class="modal-body">
-                                                <p>Вы уверены, что хотите удалить проект "{{ project.title }}"?</p>
+                                                <p><font color="#11213B">Вы уверены, что хотите удалить проект "{{ project.title }}"?</font></p>
                                                 <p class="text-danger">Это действие нельзя отменить.</p>
                                             </div>
                                             <div class="modal-footer">

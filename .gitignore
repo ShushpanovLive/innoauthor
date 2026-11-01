@@ -60,3 +60,11 @@ htmlcov/
 nosetests.xml
 coverage.xml
 *.cover
+
+# Local data, backups and editor copies
+db.json
+backup_*.sql
+innoauthor_data.json
+*.save
+*.save.*
+*.rar

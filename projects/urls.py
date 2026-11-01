@@ -50,9 +50,14 @@ urlpatterns = [
     path('shop1/', views.shop1, name='shop1'),
     path('service1/', views.service1, name='service1'),
     path('contact1/', views.contact1, name='contact1'),
+    path('step1/', views.step1, name='step1'),
+    path('step2/', views.step2, name='step2'),
+    path('step3/', views.step3, name='step3'),
+    path('step4/', views.step4, name='step4'),
+    path('step5/', views.step5, name='step5'),
     
     path('project/<int:project_id>/removeteammember/<int:user_id>/', views.removeteammember, name='removeteammember'),
-
+    path('project/<slug:project_slug>/certificate/', views.project_certificate, name="project_certificate"),
 
 
 ]

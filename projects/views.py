@@ -16,6 +16,23 @@ from django.core.mail import send_mail
 from django.template.loader import render_to_string
 from django.utils.html import strip_tags
 from django.conf import settings
+
+from django.contrib.auth import get_user_model
+from django.core.paginator import PageNotAnInteger, EmptyPage
+from io import BytesIO
+import qrcode
+from reportlab.pdfbase import pdfmetrics
+from reportlab.pdfbase.ttfonts import TTFont
+from django.http import FileResponse
+from django.urls import reverse
+
+from reportlab.lib.colors import HexColor
+from reportlab.lib.pagesizes import A4
+from reportlab.lib.units import cm
+from reportlab.lib.utils import ImageReader
+from reportlab.pdfgen import canvas
+
+from django.contrib.auth.models import User
 from django.contrib.auth import get_user_model
 from django.core.paginator import PageNotAnInteger, EmptyPage
 from .models import (
@@ -204,7 +221,12 @@ def delete_project(request, project_id):
     return redirect('projects:my_projects')
 
 def liderplatform1(request):
-    return render(request, 'glavfooter/liderplatform.html')
+    # ✅ ДОБАВЬ ЭТО - подсчет пользователей
+    users_count = User.objects.count()
+    
+    return render(request, 'glavfooter/liderplatform.html', {
+        'users_count': users_count,
+    })
     
 def workshop1(request):
     return render(request, 'glavfooter/workshop.html')
@@ -739,3 +761,481 @@ def removeteammember(request, project_id, user_id):
         return redirect('projects:project_detail', project_slug=project.slug)
     
     return redirect('projects:project_detail', project_slug=project.slug)
+
+def split_long_word(pdf, word, font_name, font_size, max_width):
+    """
+    Делит длинное слово по символам.
+    Нужна на случай, когда пользователь ввёл 50 символов подряд без пробелов.
+    """
+    parts = []
+    current_part = ""
+
+    for char in word:
+        candidate = current_part + char
+
+        if pdf.stringWidth(candidate, font_name, font_size) <= max_width:
+            current_part = candidate
+        else:
+            if current_part:
+                parts.append(current_part)
+
+            current_part = char
+
+    if current_part:
+        parts.append(current_part)
+
+    return parts
+
+
+def wrap_pdf_text(pdf, text, font_name, font_size, max_width):
+    """
+    Переносит текст по словам.
+
+    Если одно слово длиннее допустимой ширины,
+    оно дополнительно разделяется по символам.
+    """
+    text = str(text or "").strip()
+    words = text.split()
+
+    if not words:
+        return [""]
+
+    lines = []
+    current_line = ""
+
+    for word in words:
+        word_width = pdf.stringWidth(word, font_name, font_size)
+
+        # Слово не помещается даже само по себе.
+        if word_width > max_width:
+            # Сохраняем строку, которую уже собрали.
+            if current_line:
+                lines.append(current_line)
+                current_line = ""
+
+            # Делим большое слово на подходящие части.
+            word_parts = split_long_word(
+                pdf=pdf,
+                word=word,
+                font_name=font_name,
+                font_size=font_size,
+                max_width=max_width
+            )
+
+            # Все части, кроме последней, уже являются готовыми строками.
+            lines.extend(word_parts[:-1])
+
+            # Последняя часть может поместиться вместе со следующим словом.
+            current_line = word_parts[-1]
+            continue
+
+        candidate = f"{current_line} {word}".strip()
+
+        if pdf.stringWidth(candidate, font_name, font_size) <= max_width:
+            current_line = candidate
+        else:
+            if current_line:
+                lines.append(current_line)
+
+            current_line = word
+
+    if current_line:
+        lines.append(current_line)
+
+    return lines
+
+
+def draw_wrapped_centered_text(
+    pdf,
+    text,
+    y,
+    font_name,
+    font_size,
+    color,
+    max_width,
+    line_spacing
+):
+    """
+    Печатает текст по центру с переносом строк.
+    Возвращает координату Y после последней строки.
+    """
+    pdf.setFillColor(color)
+    pdf.setFont(font_name, font_size)
+
+    lines = wrap_pdf_text(
+        pdf=pdf,
+        text=text,
+        font_name=font_name,
+        font_size=font_size,
+        max_width=max_width
+    )
+
+    for line in lines:
+        pdf.drawCentredString(
+            A4[0] / 2,
+            y,
+            line
+        )
+        y -= line_spacing
+
+    return y
+
+
+@login_required
+def project_certificate(request, project_slug):
+    """
+    Формирует PDF-сертификат проекта.
+
+    Сертификат может скачать:
+    - автор проекта;
+    - сотрудник сайта;
+    - суперпользователь.
+    """
+
+    project = get_object_or_404(Project, slug=project_slug)
+
+    # Проверка доступа.
+    if not (
+        request.user == project.author
+        or request.user.is_staff
+        or request.user.is_superuser
+    ):
+        messages.error(
+            request,
+            "У вас нет прав для получения сертификата этого проекта."
+        )
+        return redirect(
+            "projects:project_detail",
+            project_slug=project.slug
+        )
+
+    # URL публичной страницы проекта — его записываем в QR-код.
+    project_path = reverse(
+        "projects:project_detail",
+        kwargs={"project_slug": project.slug}
+    )
+    project_url = request.build_absolute_uri(project_path)
+
+    # QR-код в памяти.
+    qr_buffer = BytesIO()
+
+    qr = qrcode.QRCode(
+        version=None,
+        error_correction=qrcode.constants.ERROR_CORRECT_M,
+        box_size=10,
+        border=2
+    )
+    qr.add_data(project_url)
+    qr.make(fit=True)
+
+    qr_image = qr.make_image(
+        fill_color="black",
+        back_color="white"
+    )
+
+    qr_image.save(qr_buffer, format="PNG")
+    qr_buffer.seek(0)
+
+    # PDF в памяти.
+    pdf_buffer = BytesIO()
+
+    # Подключение шрифтов с кириллицей.
+    fonts_dir = settings.BASE_DIR / "projects" / "fonts"
+
+    regular_font_path = fonts_dir / "DejaVuSans.ttf"
+    bold_font_path = fonts_dir / "DejaVuSans-Bold.ttf"
+
+    if not regular_font_path.exists() or not bold_font_path.exists():
+        raise FileNotFoundError(
+            "Не найдены шрифты для PDF. "
+            "Добавьте в папку projects/fonts файлы "
+            "DejaVuSans.ttf и DejaVuSans-Bold.ttf."
+        )
+
+    # Регистрируем шрифты, только если они ещё не зарегистрированы.
+    if "DejaVuSans" not in pdfmetrics.getRegisteredFontNames():
+        pdfmetrics.registerFont(
+            TTFont("DejaVuSans", str(regular_font_path))
+        )
+
+    if "DejaVuSans-Bold" not in pdfmetrics.getRegisteredFontNames():
+        pdfmetrics.registerFont(
+            TTFont("DejaVuSans-Bold", str(bold_font_path))
+        )
+
+    # Создаём A4 PDF.
+    pdf = canvas.Canvas(pdf_buffer, pagesize=A4)
+
+    page_width, page_height = A4
+
+    # Фирменная палитра ИнноАвтор.
+    background_color = HexColor("#11213B")
+    text_color = HexColor("#FFFFFF")
+    accent_color = HexColor("#EE8634")
+
+    # Фон страницы.
+    pdf.setFillColor(background_color)
+    pdf.rect(
+        0,
+        0,
+        page_width,
+        page_height,
+        fill=1,
+        stroke=0
+    )
+
+    # Основная декоративная рамка.
+    border_margin = 1.1 * cm
+
+    pdf.setStrokeColor(accent_color)
+    pdf.setLineWidth(1.5)
+
+    pdf.roundRect(
+        border_margin,
+        border_margin,
+        page_width - 2 * border_margin,
+        page_height - 2 * border_margin,
+        12,
+        fill=0,
+        stroke=1
+    )
+
+    # Верхняя декоративная оранжевая линия.
+    pdf.setFillColor(accent_color)
+
+    pdf.roundRect(
+        (page_width / 2) - 3.0 * cm,
+        page_height - 2.1 * cm,
+        6.0 * cm,
+        0.22 * cm,
+        3,
+        fill=1,
+        stroke=0
+    )
+
+    # Данные проекта.
+    project_title = project.title or "Без названия"
+
+    author_name = project.author.get_full_name().strip()
+    if not author_name:
+        author_name = project.author.username
+
+    created_datetime = timezone.localtime(project.create_datetime)
+    created_text = created_datetime.strftime("%d.%m.%Y в %H:%M")
+
+    tags = list(project.tags.values_list("name", flat=True))
+    tags_text = " · ".join(tags[:5]) if tags else "Без меток"
+
+    # Заголовок «Сертификат».
+    pdf.setFillColor(text_color)
+    pdf.setFont("DejaVuSans-Bold", 27)
+
+    pdf.drawCentredString(
+        page_width / 2,
+        page_height - 4.2 * cm,
+        "СЕРТИФИКАТ"
+    )
+
+    # Название проекта.
+    title_font_name = "DejaVuSans-Bold"
+    title_font_size = 18
+    title_max_width = page_width - 5.2 * cm
+
+    project_title_lines = wrap_pdf_text(
+        pdf=pdf,
+        text=project_title,
+        font_name=title_font_name,
+        font_size=title_font_size,
+        max_width=title_max_width
+    )
+
+    # Если название превратилось в 3+ строки,
+    # уменьшаем шрифт, чтобы оно смотрелось аккуратно.
+    if len(project_title_lines) > 2:
+        title_font_size = 15
+
+        project_title_lines = wrap_pdf_text(
+            pdf=pdf,
+            text=project_title,
+            font_name=title_font_name,
+            font_size=title_font_size,
+            max_width=title_max_width
+        )
+
+    # Даже при строке из 50 одинаковых символов
+    # название никогда не выйдет за левую и правую рамки.
+    pdf.setFillColor(accent_color)
+    pdf.setFont(title_font_name, title_font_size)
+
+    title_y = page_height - 6.0 * cm
+    title_line_spacing = 0.82 * cm
+
+    for line in project_title_lines:
+        pdf.drawCentredString(
+            page_width / 2,
+            title_y,
+            line
+        )
+        title_y -= title_line_spacing
+
+    # Основной текст автоматически идёт ниже названия.
+    info_y = title_y - 0.55 * cm
+    info_max_width = page_width - 5.0 * cm
+
+    info_y = draw_wrapped_centered_text(
+        pdf=pdf,
+        text="Настоящим подтверждается создание проекта указанным автором в указанную дату и время.",
+        y=info_y,
+        font_name="DejaVuSans",
+        font_size=12,
+        color=text_color,
+        max_width=info_max_width,
+        line_spacing=0.62 * cm
+    )
+
+    info_y -= 0.18 * cm
+
+    info_y = draw_wrapped_centered_text(
+        pdf=pdf,
+        text=f"Дата и время создания: {created_text}",
+        y=info_y,
+        font_name="DejaVuSans",
+        font_size=11,
+        color=text_color,
+        max_width=info_max_width,
+        line_spacing=0.58 * cm
+    )
+
+    info_y -= 0.14 * cm
+
+    info_y = draw_wrapped_centered_text(
+        pdf=pdf,
+        text=f"Автор проекта: {author_name}",
+        y=info_y,
+        font_name="DejaVuSans",
+        font_size=11,
+        color=text_color,
+        max_width=info_max_width,
+        line_spacing=0.58 * cm
+    )
+
+    info_y -= 0.45 * cm
+
+    info_y = draw_wrapped_centered_text(
+        pdf=pdf,
+        text="Проект опубликован на цифровой платформе «ИнноАвтор»",
+        y=info_y,
+        font_name="DejaVuSans",
+        font_size=10,
+        color=text_color,
+        max_width=info_max_width,
+        line_spacing=0.52 * cm
+    )
+
+    info_y -= 0.12 * cm
+
+    draw_wrapped_centered_text(
+        pdf=pdf,
+        text=f"Метки: {tags_text}",
+        y=info_y,
+        font_name="DejaVuSans",
+        font_size=9,
+        color=text_color,
+        max_width=info_max_width,
+        line_spacing=0.48 * cm
+    )
+
+    # QR-код со ссылкой на страницу проекта.
+    qr_size = 4.1 * cm
+    qr_x = (page_width - qr_size) / 2
+    qr_y = 5.0 * cm
+
+    # Белая подложка нужна для корректного сканирования QR-кода.
+    pdf.setFillColor(text_color)
+
+    pdf.roundRect(
+        qr_x - 0.18 * cm,
+        qr_y - 0.18 * cm,
+        qr_size + 0.36 * cm,
+        qr_size + 0.36 * cm,
+        6,
+        fill=1,
+        stroke=0
+    )
+
+    pdf.drawImage(
+        ImageReader(qr_buffer),
+        qr_x,
+        qr_y,
+        width=qr_size,
+        height=qr_size,
+        mask="auto"
+    )
+
+    # Подпись под QR-кодом.
+    pdf.setFillColor(text_color)
+    pdf.setFont("DejaVuSans", 9)
+
+    pdf.drawCentredString(
+        page_width / 2,
+        4.25 * cm,
+        "Отсканируйте QR-код, чтобы открыть страницу проекта"
+    )
+
+    # Линия перед подписью.
+    pdf.setStrokeColor(accent_color)
+    pdf.setLineWidth(0.8)
+
+    pdf.line(
+        3.0 * cm,
+        3.35 * cm,
+        page_width - 3.0 * cm,
+        3.35 * cm
+    )
+
+    # Подпись создателя платформы.
+    pdf.setFillColor(text_color)
+    pdf.setFont("DejaVuSans", 10)
+
+    pdf.drawCentredString(
+        page_width / 2,
+        2.65 * cm,
+        "Создатель платформы «ИнноАвтор»"
+    )
+
+    pdf.setFillColor(accent_color)
+    pdf.setFont("DejaVuSans-Bold", 13)
+
+    pdf.drawCentredString(
+        page_width / 2,
+        2.05 * cm,
+        "Михаил Шушпанов"
+    )
+
+    # Завершаем PDF.
+    pdf.save()
+    pdf_buffer.seek(0)
+
+    return FileResponse(
+        pdf_buffer,
+        as_attachment=True,
+        filename=f"certificate-innoavtor-{project.id}.pdf",
+        content_type="application/pdf"
+    )
+
+from django.shortcuts import render
+
+def step1(request):
+    return render(request, 'step1.html')
+
+def step2(request):
+    return render(request, 'step2.html')
+    
+def step3(request):
+    return render(request, 'step3.html')
+
+def step4(request):
+    return render(request, 'step4.html')
+    
+def step5(request):
+    return render(request, 'step5.html')

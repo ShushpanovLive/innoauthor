@@ -1,6 +1,7 @@
 from django.contrib import admin
 from django.utils.safestring import mark_safe
 from .models import Newspost, Tag
+from .models import Expert
 
 # Register your models here.
 @admin.register(Tag)
@@ -24,3 +25,9 @@ class NewspostAdmin(admin.ModelAdmin):
         return 'No image'
 
     image_preview.short_description = 'Preview'
+
+@admin.register(Expert)
+class ExpertAdmin(admin.ModelAdmin):
+    list_display = ['name', 'text']
+    erbose_name = 'Эксперт'           
+    verbose_name_plural = 'Эксперты'   

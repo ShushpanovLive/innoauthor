@@ -85,7 +85,7 @@
 									<div class="feature-img">
 										{% if i.post_photo %}
 										<img src="{{ i.post_photo.url }}" class="img-fluid" alt="Post Image"
-											style="width: 200%; height: 300px; object-fit: cover;">
+											style="width: 100%; height: auto; max-width: 100%; object-fit: contain;">
 										{% endif %}
 									</div>
 								</div>
@@ -108,7 +108,7 @@
 								<div class="col-lg-9 col-md-9">
 									<h3 class="mt-20 mb-20 text-white">{{ i.namepost }}</h3>
 									<p class="excert">
-										{{ i.soderjanie }}
+										{{ i.soderjanie|truncatechars:300 }}
 									</p>
 									<a href="{% url 'indexglav:news_detail' i.slug %}" class="primary-btn">Узнать
 										больше</a>

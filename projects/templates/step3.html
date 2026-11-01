@@ -1,0 +1,392 @@
+<!doctype html>
+<!-- ИнноАвтор — интерактивная дорожная карта развития проекта. Демонстрационная версия интерфейса. -->
+<html lang="ru">
+{% load static %}
+<head>
+<meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>ИнноАвтор</title>
+	<link href="{% static 'img/icon.png' %}" rel="icon">
+	<link href="https://fonts.googleapis.com/css?family=Oswald:300,400,500" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Roboto:300i,400,500" rel="stylesheet">
+
+	<link rel="stylesheet" href="{% static 'vendor/themify-icons/themify-icons.css'%}">
+	<link rel="stylesheet" href="https://cdn.linearicons.com/free/1.0.0/icon-font.min.css">
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css">
+	<link rel="stylesheet" href="{% static 'vendor/owl-carousel/owl.theme.default.min.css'%}">
+	<link rel="stylesheet" href="{% static 'vendor/owl-carousel/owl.carousel.min.css'%}">
+	<link rel="stylesheet" href="{% static 'vendor/bootstrap/bootstrap.min.css'%}">
+  <link rel="stylesheet" href="{% static 'css/style.css' %}">
+  <link rel="stylesheet" href="{% static 'css/fix-header.css' %}">
+</head>
+<style>
+/* Base */
+:root{--bg:#11213B;--deep:#0A1528;--ink:#fff;--muted:rgba(255,255,255,.72);--orange:#F9690E;--orange2:#FF9B4A;--gold:#D9A441;--blue:#57C8E8;--violet:#AD72E9;--line:rgba(217,164,65,.42);--glass:rgba(13,31,61,.72);--radius:22px;--shadow:0 18px 55px rgba(0,0,0,.25)}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;overflow-x:hidden;color:var(--ink);font-family:Manrope,Arial,sans-serif;background:radial-gradient(circle at 50% 0%,#1d3157 0,var(--bg) 34%,var(--deep) 100%);transition:background 1s ease;line-height:1.6}body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:-1;opacity:.5;background-image:linear-gradient(120deg,transparent 0 47%,rgba(217,164,65,.055) 47.2% 47.5%,transparent 47.8%),radial-gradient(circle at 20% 12%,rgba(249,105,14,.16),transparent 20%),radial-gradient(circle at 80% 46%,rgba(87,200,232,.09),transparent 22%)}a{color:inherit;text-decoration:none}button,input,textarea{font:inherit}.container{width:min(1180px,calc(100% - 40px));margin:auto}.eyebrow{color:var(--orange2);letter-spacing:.16em;font-size:.73rem;font-weight:800;text-transform:uppercase}.section-title{font:700 clamp(2rem,4vw,4rem)/1.15 Cinzel,serif;margin:0 0 16px}.section-lead{max-width:720px;color:var(--muted);font-size:1.05rem}.btn{display:inline-flex;justify-content:center;align-items:center;gap:9px;border:1px solid rgba(249,105,14,.8);border-radius:999px;padding:13px 21px;background:linear-gradient(135deg,var(--orange),#dc5906);color:#fff;font-weight:800;cursor:pointer;transition:.25s;box-shadow:0 10px 24px rgba(249,105,14,.18)}.btn:hover{transform:translateY(-3px);box-shadow:0 14px 32px rgba(249,105,14,.36);filter:brightness(1.08)}.btn.ghost{background:rgba(255,255,255,.035);border-color:rgba(217,164,65,.55);color:#fff}.btn.ghost:hover{border-color:var(--gold);background:rgba(217,164,65,.1)}.btn.small{font-size:.82rem;padding:9px 14px}.tag{display:inline-block;padding:5px 9px;border:1px solid rgba(217,164,65,.32);border-radius:99px;font-size:.72rem;color:#ffe0b0;background:rgba(217,164,65,.07)}
+/* Navigation */
+.nav{position:fixed;inset:0 0 auto;z-index:50;height:74px;background:rgba(10,21,40,.64);border-bottom:1px solid rgba(217,164,65,.15);backdrop-filter:blur(14px)}.nav-inner{height:100%;display:flex;align-items:center;justify-content:space-between;gap:20px}.brand{display:flex;align-items:center;gap:12px;font:700 1.15rem Cinzel,serif;letter-spacing:.04em}.brand-mark{width:31px;height:31px;display:grid;place-items:center;transform:rotate(45deg);border:1px solid var(--orange);color:var(--orange);box-shadow:0 0 18px rgba(249,105,14,.4)}.brand-mark span{transform:rotate(-45deg);font:700 .7rem Manrope}.nav-links{display:flex;align-items:center;gap:21px;color:var(--muted);font-size:.86rem;font-weight:700}.nav-links a:hover{color:#fff}.menu-toggle{display:none;background:none;border:0;color:#fff;font-size:1.5rem;cursor:pointer}
+/* Hero */
+.hero{min-height:100vh;display:grid;align-items:center;padding:120px 0 70px;position:relative;isolation:isolate}.hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:38px;align-items:center}.hero h1{font:800 clamp(3rem,6.6vw,6.9rem)/.98 Cinzel,serif;margin:15px 0 22px;letter-spacing:-.05em}.hero h1 span{color:var(--orange);text-shadow:0 0 28px rgba(249,105,14,.35)}.hero p{font-size:1.12rem;color:var(--muted);max-width:620px}.hero-actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:32px}.hero-note{position:absolute;bottom:34px;left:50%;transform:translateX(-50%);color:rgba(255,255,255,.55);font-size:.83rem;white-space:nowrap}.hero-art{min-height:480px;display:grid;place-items:center;position:relative}.orb{width:min(390px,75vw);aspect-ratio:1;position:relative;display:grid;place-items:center;border:1px solid rgba(217,164,65,.5);transform:rotate(45deg);background:radial-gradient(circle,rgba(249,105,14,.22),rgba(17,33,59,.1) 48%,transparent 68%);box-shadow:inset 0 0 60px rgba(249,105,14,.13),0 0 60px rgba(249,105,14,.1);animation:float 7s ease-in-out infinite}.orb:before,.orb:after{content:"";position:absolute;inset:12%;border:1px solid rgba(217,164,65,.38)}.orb:after{inset:28%;border-color:rgba(87,200,232,.46)}.orb-inner{transform:rotate(-45deg);text-align:center}.infinity{font:700 8rem/.8 Cinzel,serif;color:transparent;-webkit-text-stroke:1px var(--orange);text-shadow:0 0 22px rgba(249,105,14,.6)}.idea-impact{font-size:.8rem;letter-spacing:.16em;color:#ffe0b0;margin-top:26px}.spark{position:absolute;width:5px;height:5px;background:var(--gold);border-radius:50%;box-shadow:0 0 15px 5px rgba(217,164,65,.5);animation:pulse 2s infinite}.s1{top:14%;left:15%}.s2{right:10%;bottom:18%;animation-delay:.8s}.s3{top:27%;right:20%;animation-delay:1.3s}
+/* Roadmap */
+.intro{padding:105px 0 60px;text-align:center}.intro .section-lead{margin:0 auto}.legend{display:flex;justify-content:center;flex-wrap:wrap;gap:18px;margin-top:28px;color:var(--muted);font-size:.82rem}.legend i{display:inline-block;width:19px;height:2px;margin:0 7px 3px 0;vertical-align:middle}.roadmap{position:relative;padding:40px 0 50px}.path{position:absolute;left:50%;top:0;bottom:0;width:4px;transform:translateX(-50%);background:linear-gradient(to bottom,var(--orange),var(--gold),var(--blue),var(--violet),var(--gold),var(--orange));box-shadow:0 0 18px rgba(249,105,14,.55);border-radius:99px;opacity:.42;overflow:hidden}.path::after{content:"";position:absolute;top:-15%;left:0;width:100%;height:22%;background:#fff;filter:blur(3px);animation:traveler 5s linear infinite}.level{position:relative;min-height:820px;padding:88px 0;display:flex;align-items:center}.level:nth-of-type(odd) .level-shell{grid-template-columns:1.04fr .96fr}.level:nth-of-type(even) .level-shell{grid-template-columns:.96fr 1.04fr}.level-shell{width:min(1180px,calc(100% - 40px));margin:auto;display:grid;gap:68px;align-items:center}.level-content{position:relative}.level:nth-of-type(even) .level-content{order:2}.level:nth-of-type(even) .node-wrap{order:1}.node-wrap{display:grid;place-items:center;position:relative;min-height:260px}.node{width:145px;height:145px;display:grid;place-items:center;transform:rotate(45deg);background:linear-gradient(135deg,rgba(249,105,14,.2),rgba(217,164,65,.06));border:2px solid var(--orange);box-shadow:0 0 0 12px rgba(249,105,14,.05),0 0 42px rgba(249,105,14,.38);position:relative;z-index:2;transition:.4s}.node span{font:800 4rem Cinzel,serif;color:var(--orange2);transform:rotate(-45deg);text-shadow:0 0 16px rgba(249,105,14,.7)}.node-wrap::before,.node-wrap::after{content:"";position:absolute;width:250px;height:250px;border:1px solid rgba(217,164,65,.25);transform:rotate(45deg)}.node-wrap::after{width:205px;height:205px;border-color:rgba(87,200,232,.18);animation:spin 14s linear infinite}.level.active .node{animation:nodeIn .6s ease both}.level.active .node-wrap{filter:drop-shadow(0 0 24px rgba(249,105,14,.55))}.level-kicker{color:var(--gold);font:700 .76rem Manrope;letter-spacing:.16em;text-transform:uppercase}.level h2{font:800 clamp(2.1rem,4vw,4.25rem)/1.08 Cinzel,serif;margin:10px 0 15px}.level-description{color:var(--muted);font-size:1rem;max-width:650px}.motto{color:#ffbf82;font:600 1.08rem Cinzel,serif;margin:18px 0 28px}.action-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:13px}.action-card,.service-card,.expert-mini,.expert-card,.jurchain-box,.flow-step{border:1px solid rgba(217,164,65,.26);background:linear-gradient(135deg,rgba(28,53,94,.72),rgba(10,21,40,.68));backdrop-filter:blur(9px);border-radius:var(--radius);box-shadow:var(--shadow)}.action-card{padding:18px;transition:.25s}.action-card:hover,.service-card:hover,.expert-mini:hover,.expert-card:hover{transform:translateY(-5px);border-color:rgba(249,105,14,.8);box-shadow:0 18px 35px rgba(0,0,0,.28),0 0 24px rgba(249,105,14,.12)}.action-number{color:var(--orange2);font-weight:800;font-size:.8rem}.action-card h3{font:700 1rem Cinzel,serif;margin:6px 0}.action-card p{font-size:.82rem;color:var(--muted);margin:0 0 12px}.level-extra{margin-top:24px;display:grid;grid-template-columns:1fr;gap:16px}.service-card{padding:21px;display:flex;gap:15px;align-items:flex-start}.service-icon{width:42px;height:42px;flex:0 0 42px;display:grid;place-items:center;border:1px solid var(--gold);color:var(--gold);transform:rotate(45deg)}.service-icon span{transform:rotate(-45deg)}.service-card h3{font:700 1.08rem Cinzel,serif;margin:0 0 5px}.service-card p{color:var(--muted);font-size:.85rem;margin:0 0 10px}.price{color:#ffd18a;font-weight:800;font-size:.88rem}.mini-experts{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.expert-mini{padding:13px}.avatar{width:38px;height:38px;border-radius:50%;display:grid;place-items:center;background:linear-gradient(135deg,var(--orange),var(--gold));color:#11213B;font-size:.72rem;font-weight:800;margin-bottom:8px}.expert-mini strong{display:block;font-size:.78rem}.expert-mini small{display:block;color:var(--muted);font-size:.69rem;line-height:1.35;margin:4px 0 9px}.level-final{min-height:720px;background:radial-gradient(ellipse at center,rgba(249,105,14,.25),rgba(173,114,233,.15) 38%,transparent 70%)}.level-final .node{border-color:var(--gold);width:170px;height:170px;box-shadow:0 0 0 16px rgba(217,164,65,.08),0 0 70px rgba(249,105,14,.65)}.final-options{display:grid;grid-template-columns:repeat(2,1fr);gap:11px;margin:25px 0}.final-options div{padding:13px;border-left:2px solid var(--gold);background:rgba(217,164,65,.07);font-size:.86rem}.disclaimer{font-size:.74rem;color:rgba(255,255,255,.56);margin-top:14px}
+/* Experts */
+.experts-section{padding:115px 0}.filters{display:flex;flex-wrap:wrap;gap:9px;margin:28px 0}.filter-btn{background:rgba(255,255,255,.04);color:#fff;border:1px solid rgba(217,164,65,.3);padding:9px 13px;border-radius:999px;cursor:pointer;font-size:.78rem}.filter-btn.active,.filter-btn:hover{background:var(--orange);border-color:var(--orange)}.experts-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}.expert-card{padding:21px;display:flex;flex-direction:column;transition:.25s}.expert-card .avatar{width:55px;height:55px;font-size:.9rem}.expert-card h3{font:700 1.04rem Cinzel,serif;margin:0}.expert-card p{font-size:.82rem;color:var(--muted);min-height:42px;margin:6px 0 12px}.tags{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:16px}.card-actions{display:flex;gap:9px;margin-top:auto}.expert-card.hidden{display:none}
+/* JurChain widget */
+.jurchain{padding:110px 0;background:linear-gradient(120deg,rgba(87,200,232,.1),rgba(173,114,233,.12),rgba(249,105,14,.1));border-top:1px solid rgba(217,164,65,.2);border-bottom:1px solid rgba(217,164,65,.2)}.jur-grid{display:grid;grid-template-columns:.84fr 1.16fr;gap:48px;align-items:start}.flow{display:grid;gap:12px;margin-top:27px}.flow-step{padding:16px;display:flex;gap:14px;align-items:center}.flow-no{font:700 1.3rem Cinzel,serif;color:var(--orange)}.jurchain-box{padding:27px}.jurchain-box h3{font:700 1.5rem Cinzel,serif;margin:0 0 8px}.jur-form{display:grid;gap:12px;margin-top:20px}.jur-form textarea{resize:vertical;min-height:110px;color:#fff;background:rgba(0,0,0,.17);border:1px solid rgba(217,164,65,.35);border-radius:14px;padding:14px;outline:none}.jur-form textarea:focus{border-color:var(--orange);box-shadow:0 0 0 3px rgba(249,105,14,.12)}.ai-answer{display:none;margin-top:18px;padding:18px;border:1px solid rgba(87,200,232,.42);border-radius:16px;background:rgba(87,200,232,.08)}.ai-answer.visible{display:block;animation:rise .35s ease}.ai-answer h4{margin:0 0 8px;color:#aeeeff;font:700 1rem Cinzel,serif}.ai-answer p{margin:0;color:var(--muted);font-size:.9rem}.route-buttons{display:grid;grid-template-columns:1fr;gap:9px;margin-top:14px}.route-btn{border:1px solid rgba(217,164,65,.35);background:rgba(255,255,255,.03);color:#fff;padding:11px;text-align:left;border-radius:12px;cursor:pointer}.route-btn:hover{border-color:var(--orange);background:rgba(249,105,14,.08)}
+/* CTA */
+.cta{padding:125px 0;text-align:center;position:relative}.cta-box{padding:clamp(35px,7vw,80px);border:1px solid rgba(217,164,65,.4);border-radius:32px;background:radial-gradient(circle at 50% 0,rgba(249,105,14,.25),rgba(17,33,59,.8) 62%);box-shadow:0 0 70px rgba(249,105,14,.12)}.cta-box p{max-width:720px;color:var(--muted);margin:0 auto 25px}.cta .hero-actions{justify-content:center}.footer{border-top:1px solid rgba(217,164,65,.2);padding:45px 0 25px}.footer-grid{display:flex;justify-content:space-between;gap:30px;align-items:flex-start}.footer p,.footer small{color:var(--muted);font-size:.82rem}.footer-links{display:flex;flex-wrap:wrap;gap:14px;color:#d7e0f1;font-size:.82rem}.footer-bottom{display:flex;justify-content:space-between;gap:18px;border-top:1px solid rgba(255,255,255,.08);margin-top:25px;padding-top:20px}
+/* Modals */
+.modal{display:none;position:fixed;inset:0;z-index:100;background:rgba(3,10,23,.78);align-items:center;justify-content:center;padding:20px;backdrop-filter:blur(8px)}.modal.open{display:flex}.modal-dialog{position:relative;width:min(540px,100%);max-height:90vh;overflow:auto;padding:30px;border:1px solid rgba(217,164,65,.55);border-radius:24px;background:linear-gradient(145deg,#1b345c,#0a1528);box-shadow:0 25px 70px rgba(0,0,0,.5);animation:rise .28s ease}.modal-dialog h3{font:700 1.65rem Cinzel,serif;margin:0 0 10px}.modal-dialog p{color:var(--muted);font-size:.9rem}.modal-close{position:absolute;right:14px;top:12px;border:0;background:transparent;color:#fff;font-size:1.7rem;cursor:pointer}.modal-form{display:grid;gap:12px;margin-top:18px}.modal-form input,.modal-form textarea{background:rgba(255,255,255,.05);border:1px solid rgba(217,164,65,.3);border-radius:12px;color:#fff;padding:12px}.notice{position:fixed;right:20px;bottom:20px;z-index:120;display:none;padding:14px 18px;border:1px solid var(--gold);border-radius:14px;background:#122747;color:#fff;box-shadow:var(--shadow)}.notice.show{display:block;animation:rise .25s ease}
+/* Animations */
+.reveal{opacity:0;transform:translateY(30px);transition:opacity .7s ease,transform .7s ease}.reveal.visible{opacity:1;transform:none}@keyframes float{50%{transform:rotate(45deg) translateY(-12px)}}@keyframes pulse{50%{transform:scale(1.8);opacity:.35}}@keyframes spin{to{transform:rotate(405deg)}}@keyframes traveler{to{transform:translateY(600%)}}@keyframes nodeIn{0%{opacity:0;transform:rotate(45deg) scale(.6)}100%{opacity:1;transform:rotate(45deg) scale(1)}}@keyframes rise{from{opacity:0;transform:translateY(13px)}to{opacity:1;transform:none}}
+/* Progress navigation */
+.progress-nav{position:fixed;right:18px;top:50%;z-index:40;transform:translateY(-50%);display:grid;gap:10px}.progress-nav button{width:34px;height:34px;border-radius:50%;border:1px solid rgba(217,164,65,.4);background:rgba(10,21,40,.7);color:rgba(255,255,255,.68);font:700 .72rem Cinzel,serif;cursor:pointer;transition:.25s}.progress-nav button.active,.progress-nav button:hover{background:var(--orange);color:#fff;border-color:var(--orange);box-shadow:0 0 18px rgba(249,105,14,.6)}
+/* Responsive */
+@media(max-width:900px){.hero-grid,.jur-grid{grid-template-columns:1fr}.hero-art{min-height:330px;order:-1}.orb{width:280px}.nav-links{position:absolute;left:0;right:0;top:74px;display:none;padding:17px 20px;flex-direction:column;align-items:stretch;background:#10213d;border-bottom:1px solid rgba(217,164,65,.25)}.nav-links.open{display:flex}.menu-toggle{display:block}.nav-cta{display:none}.level,.level-final{min-height:auto}.level-shell,.level:nth-of-type(odd) .level-shell,.level:nth-of-type(even) .level-shell{grid-template-columns:1fr;gap:22px}.level:nth-of-type(even) .level-content,.level:nth-of-type(even) .node-wrap{order:initial}.node-wrap{min-height:190px}.path{left:36px}.level{padding-left:32px}.level-shell{width:min(100% - 34px,760px);margin-left:auto}.node{width:105px;height:105px}.node span{font-size:3rem}.node-wrap::before,.node-wrap::after{width:175px;height:175px}.node-wrap::after{width:135px;height:135px}.experts-grid{grid-template-columns:repeat(2,1fr)}.progress-nav{right:7px}.progress-nav button{width:28px;height:28px;font-size:.63rem}}
+@media(max-width:560px){.container{width:min(100% - 28px,1180px)}.hero{padding-top:105px}.hero h1{font-size:3.15rem}.hero-note{display:none}.action-grid,.final-options,.experts-grid{grid-template-columns:1fr}.mini-experts{grid-template-columns:1fr}.service-card{flex-direction:column}.level{padding:65px 0 65px 17px}.level-shell{width:calc(100% - 28px)}.path{left:18px;width:3px}.progress-nav{display:none}.footer-grid,.footer-bottom{flex-direction:column}.card-actions{flex-direction:column}.card-actions .btn{width:100%}.orb{width:235px}.infinity{font-size:6rem}.section-title{font-size:2.1rem}.cta{padding:80px 0}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;scroll-behavior:auto!important;transition-duration:.01ms!important}}
+#lockedLevels {
+    position: relative;
+}
+
+/* Затемнение поверх уровней (остаётся навсегда) */
+#lockedLevels::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 999;
+    pointer-events: auto;
+}
+
+/* Кнопка разблокировки */
+#unlockBtn {
+    position: relative;
+    z-index: 1000;
+    padding: 12px 24px;
+    font-size: 16px;
+    border: none;
+    border-radius: 8px;
+    background: #EE8634;
+    color: #fff;
+    cursor: pointer;
+    margin: 20px auto;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    pointer-events: auto;
+}
+
+.lock-icon {
+    font-size: 20px;
+}
+
+/* Убираем правило, которое скрывало кнопку */
+/* #lockedLevels.unlocked #unlockBtn { display: none; } ← удали или закомментируй */
+</style>
+</head>
+<body>
+
+		<!-- ================Offcanvus Menu Area =================-->
+	{% include 'includes/header.html' %}
+	<!--================End Offcanvus Menu Area =================-->
+<main id="top">
+<section class="intro" id="roadmap">
+<div class="container reveal">
+<div class="eyebrow">Карта создателя</div>
+<h2 class="section-title">Как работает путь ИнноАвтор</h2>
+<p class="section-lead">Это не линейный чек-лист, а маршрут развития: 
+возвращайтесь к нужным этапам, подключайте экспертов, выбирайте сервисы 
+и ведите свою идею к устойчивому результату.</p>
+<div class="legend">
+<span><i style="background:#F9690E"></i>Идея</span>
+<span><i style="background:#D9A441"></i>Рабочая модель</span>
+<span><i style="background:#57C8E8"></i>Готовый проект</span>
+<span><i style="background:#AD72E9"></i>Бизнес</span>
+<span><i style="background:#F9690E"></i>Перспективный</span></div></div></section>
+<section class="roadmap" id="services"><div class="path" aria-hidden="true"></div>
+<div class="node-wrap reveal"><div class="node"><span>I</span></div></div>
+<section class="level" id="level-1" data-level="1">
+<div class="level-shell"><div class="level-content reveal">
+<div class="level-kicker">Уровень I · точка старта</div>
+<h2>Идея</h2><p class="level-description">Любой большой проект начинается с мысли, которая 
+пока существует только в голове. Здесь важно сформулировать идею, увидеть ее ценность, получить первые знания и собрать вокруг себя людей.</p>
+<p class="motto">«Из замысла — в осознанный проект.»</p><div class="action-grid"><article class="action-card">
+<span class="action-number">1.0</span><h3>Создать проект</h3><p>Опишите идею, цели, аудиторию и первые шаги. Сформируйте паспорт проекта.</p>
+<button class="btn small ghost modal-trigger" data-modal="legal-modal">Выполнено</button></article>
+<article class="action-card"><span class="action-number">1.1</span><h3>Получить сертификат</h3>
+<p>Подтвердите прохождение первого этапа цифровым сертификатом автора проекта.</p>
+<a class="btn small" href="{% url 'projects:my_projects' %}" target="_blank" rel="noopener">Забрать</a>
+</article><article class="action-card"><span class="action-number">1.2</span><h3>Показать знакомому</h3>
+<p>Поделитесь идеей с будущими наставниками и единомышленниками.</p>
+<button
+    class="btn small"
+    type="button"
+    onclick="
+        navigator.clipboard.writeText(window.location.href);
+        alert('Ссылка скопирована');
+    "
+>
+    Поделиться
+</button>
+</article><article class="action-card"><span class="action-number">1.3</span><h3>Получить консультацию</h3>
+<p>Сформируйте понятный план движения вместе с экспертом.</p>
+<a class="btn small" href="https://auth.robokassa.ru/merchant/Invoice/6XbaAtFgUECZOxy3tAvJMQ" target="_blank" rel="noopener">Перейти</a>
+</article><article class="action-card"><span class="action-number">1.4</span>
+<h3>Собрать команду</h3><p>Найдите дизайнера, юриста, разработчика, SMM-специалиста или наставника.</p>
+<a class="btn small" href="{% url 'projects:projects' %}" target="_blank" rel="noopener">Найти команду</a></article></div><div class="level-extra">
+<article class="service-card"><div class="service-icon"><span>✦</span></div><div><h3>Экспресс-разбор идеи</h3>
+<p>Оценка жизнеспособности, целевой аудитории, ресурсов, рисков и первых действий. Поможем доработать вашу идею, оформить сертификат «ИнноАвтор» и расскажем о проекте в новостной ленте. Это поможет привлечь внимание потенциальных участников и ускорить поиск команды.
+
+После подготовки проекта мы поможем перевести его на Уровень II - «Рабочая модель», где идея превращается в структурированный проект с понятными целями, задачами и планом развития.</p><!--<div class="price">от 999 ₽/в мес.</div>-->
+<a class="btn small" href="https://auth.robokassa.ru/RecurringSubscriptionPage/Subscription/Subscribe?SubscriptionId=7a7f9a8c-2248-43df-98b4-9adc5f46d18d" target="_blank" rel="noopener">Заказать разбор</a></div></article><div class="mini-experts">
+<!--
+<article class="expert-mini"><div class="avatar">ДЖ</div><strong>Дарья Жогина</strong><small>Стратег социальных проектов</small>
+<button class="btn small modal-trigger" data-modal="booking-modal">Записаться</button></article>
+<article class="expert-mini"><div class="avatar">МЕ</div><strong>Матвей Ерофеев</strong><small>Маркетолог и трекер</small>
+<button class="btn small modal-trigger" data-modal="booking-modal">Записаться</button></article>
+<article class="expert-mini"><div class="avatar">МШ</div><strong>Михаил Шушпанов</strong>
+<small>Юрист </small><button class="btn small modal-trigger" data-modal="booking-modal">Записаться</button>
+</article>--></div></div></div>
+
+</div></section>
+
+
+<div class="node-wrap reveal"><div class="node"><span>II<br></span></div></div>
+<section class="level" id="level-2" data-level="2"><div class="level-shell"><div class="level-content reveal">
+<div class="level-kicker">Уровень II · фундамент</div><h2>Рабочая модель</h2>
+<p class="level-description">Идея становится системой: появляются цели, продукт, смета, команда, календарный план, документы и возможность привлечь первые ресурсы.</p>
+<p class="motto">«Не просто мечта. Модель, которую можно защитить.»</p><div class="action-grid"><article class="action-card"><span class="action-number">2.0</span>
+<h3>Найти грант</h3><p>Выберите конкурс и подготовьте проект, понятный экспертам.</p><a class="btn small" href="{% url 'startpage:contact' %}" target="_blank" rel="noopener">Подобрать грант</a></article>
+<article class="action-card"><span class="action-number">2.1</span><h3>Составить заявку</h3>
+<p>Сформируйте цель, задачи, бюджет и показатели эффективности.</p>
+<a class="btn small" href="https://auth.robokassa.ru/RecurringSubscriptionPage/Subscription/Subscribe?SubscriptionId=dcd6ee15-7559-4c19-95fe-b773fe46879c" target="_blank" rel="noopener">Получить помощь</a></article>
+<article class="action-card"><span class="action-number">2.2</span>
+<h3>Подать заявку</h3><p>Проверьте документы и соблюдение требований конкурса.</p><a class="btn small" href="https://auth.robokassa.ru/RecurringSubscriptionPage/Subscription/Subscribe?SubscriptionId=0daffac5-9c0a-4e05-b544-8371235849c8" target="_blank" rel="noopener">Проверить</a></article>
+<article class="action-card"><span class="action-number">2.3</span><h3>Получить результат</h3><p>Мы опубликуем информацию о вашей победе на новостной странице.</p>
+<a class="btn small" href="{% url 'indexglav:indexglav' %}" target="_blank" rel="noopener">Перейти</a></article>
+
+
+
+</div>
+<div class="level-extra">
+<article class="service-card"><div class="service-icon"><span>◈</span></div><div><h3>Грантовая и юридическая упаковка</h3>
+<p>Заявка под ключ, аудит, юридическая упаковка, выстраивание долгосрочной стратегии, ведение проекта.</p>
+<a class="btn small" href="https://auth.robokassa.ru/RecurringSubscriptionPage/Subscription/Subscribe?SubscriptionId=de818102-e24e-4cde-8e33-23eaa5c5cffd" target="_blank" rel="noopener">Заказать услугу</a></div></article>
+</div></div>
+</div></section>
+<div class="node-wrap reveal"><div class="node"><span>III</span></div></div>
+<section class="level" id="level-3" data-level="3"><div class="level-shell"><div class="level-content reveal"><div class="level-kicker">Уровень III · продукт</div>
+<h2>Готовый проект</h2><p class="level-description">У проекта есть структура, команда, первые результаты и понятная ценность для аудитории. Теперь его нужно превратить в сильный продукт, который можно масштабировать.</p>
+<p class="motto">«Проект начинает жить собственной жизнью.»</p>
+<div class="action-grid"><article class="action-card"><span class="action-number">3.0</span>
+<h3>Готовый проект</h3><p>Соберите презентацию, финансовую модель и портфолио результатов.</p><a class="btn small" href="https://auth.robokassa.ru/RecurringSubscriptionPage/Subscription/Subscribe?SubscriptionId=f4d78180-28e2-4c7e-aa70-c4c721b02465" target="_blank" rel="noopener">Упаковать</a></article>
+<article class="action-card"><span class="action-number">3.1</span><h3>Поиск партнеров</h3><p>Найдите организации, медиа, бренды и сообщества.</p>
+<a class="btn small" href="https://auth.robokassa.ru/RecurringSubscriptionPage/Subscription/Subscribe?SubscriptionId=0b4b8085-a0e9-49bf-9c79-85a7a5c1b9b7" target="_blank" rel="noopener">Найти партнеров</a></article>
+<article class="action-card"><span class="action-number">3.2</span><h3>Создание сайта</h3>
+<p>Сделайте лендинг, личный кабинет, каталог или платформу.</p><a class="btn small" href="https://delovia.ru/" target="_blank" rel="noopener">Заказать сайт</a>
+</article>
+<article class="action-card"><span class="action-number">3.3</span><h3>Юридическая консультация</h3>
+<p>Проверьте договоры, права, согласия и персональные данные.</p>
+<a class="btn small" href="https://jurchain.ru/" target="_blank" rel="noopener">Юридическая помощь</a>
+</article>
+<article class="action-card"><span class="action-number">3.4</span><h3>Создание юрлица</h3><p>Выберите формат: самозанятость, ИП, ООО или НКО.</p>
+<a class="btn small" href="https://auth.robokassa.ru/RecurringSubscriptionPage/Subscription/Subscribe?SubscriptionId=2c889957-9cfb-42ad-b79e-dff1bc6fb817" target="_blank" rel="noopener">Выбрать форму</a>
+</article>
+<article class="action-card"><span class="action-number">3.5</span><h3>Получить юрлицо</h3><p>Оформите структуру для договоров, найма и финансирования.</p>
+<a class="btn small" href="https://auth.robokassa.ru/RecurringSubscriptionPage/Subscription/Subscribe?SubscriptionId=f00d3dbe-02b7-48e1-8b57-5b651d3ffb76" target="_blank" rel="noopener">Оформить</a></article>
+</div><div class="level-extra"><article class="service-card">
+<div class="service-icon"><span>⌘</span></div><div><h3>Цифровая упаковка проекта</h3><p>Сайт, фирменный стиль, презентация, Telegram-бот, CRM-логика, личный кабинет, платформа для участников или онлайн-курс.</p>
+<div class="price">Индивидуальный расчет</div>
+<a class="btn small" href="{% url 'startpage:contact' %}" target="_blank" rel="noopener">Обсудить разработку</a></div></article></div></div>
+</div></section>
+
+<div id="lockedLevels">
+ <a  href="{% url 'startpage:contact' %}" target="_blank" rel="noopener"><button id="unlockBtn" class="btn-unlock">
+        <span class="lock-icon">🔒</span>
+      Разблокировать
+    </button></a>
+<div class="node-wrap reveal"><div class="node"><span>IV</span></div></div>
+
+<section class="level" id="level-4" data-level="4"><div class="level-shell"><div class="level-content reveal">
+<div class="level-kicker">Уровень IV · система</div><h2>Бизнес</h2>
+<p class="level-description">Проект становится устойчивой организацией - бизнесом. Появляются партнеры, клиенты, юридическая структура, финансовые процессы и модель дохода.</p>
+<p class="motto">«От проекта — к системе, которая создает ценность.»</p><div class="action-grid">
+
+<article class="action-card">
+<span class="action-number">4.0</span><h3>Финансовая модель</h3><p>Поймите экономику и точки роста. Найдите своего покупателя.</p>
+<a class="btn small" href="https://auth.robokassa.ru/merchant/Invoice/qJRGc39FdEam1nrQH49cdw" target="_blank" rel="noopener">Построить</a></article>
+<article class="action-card"><span class="action-number">4.1</span><h3>Настроить продажи</h3>
+<p>Сформируйте воронку и работу с клиентами.</p><a class="btn small" href="https://auth.robokassa.ru/merchant/Invoice/oqxvL9jLfEOSMCOSS0fMwQ" target="_blank" rel="noopener">Настроить</a></article>
+
+</div><div class="level-extra"><article class="service-card">
+<div class="service-icon"><span>⚖</span></div><div>
+<h3>Бизнес-упаковка и юридическая инфраструктура</h3>
+<p>Договоры, оферты, политика конфиденциальности, согласия, документы для сайта, коммерческие предложения и деловая коммуникация.</p>
+<a class="btn small" href="https://auth.robokassa.ru/merchant/Invoice/B3-r3tjPtEqlGWMXsS8sFg" target="_blank" rel="noopener">Получить предложение</a></div></article></div></div></div>
+</section>
+
+<div class="node-wrap reveal"><div class="node"><span>V</span></div></div>
+<section class="level" id="level-5" data-level="5"><div class="level-shell"><div class="level-content reveal"><div class="level-kicker">Уровень V · инвестиции и клиенты</div>
+<h2>Перспективный</h2><p class="level-description">Бизнес доказал ценность, получил первых пользователей, клиентов или партнеров. Теперь можно масштабироваться: расширять отрасли экономики, усиливать команду и привлекать инвестиции.</p>
+<p class="motto">«Деньги приходят туда, где есть идея, рабочая модель, готовый проект, бизнес модель, команда.»</p><div class="action-grid">
+<article class="action-card"><span class="action-number">5.0</span><h3>Защитить бренд</h3>
+<p>Защитите контент, интеллектуальные права и активы.</p></article><article class="action-card">
+<span class="action-number">5.1</span><h3>Переговоры с инвестором</h3><p>Подготовьте логику сделки и ключевые аргументы.</p></article><article class="action-card">
+<span class="action-number">5.2</span><h3>Питч-сессия</h3><p>Представьте проект профессиональному сообществу.</p></article></div><div class="level-extra">
+<article class="service-card"><div class="service-icon"><span>▲</span></div><div><h3>Инвестиционная упаковка бизнеса</h3>
+<p>Презентация, финансовая модель, инвестиционный меморандум, стратегия переговоров и юридическая структура привлечения финансирования.</p>
+<a class="btn small" href="https://auth.robokassa.ru/merchant/Invoice/97mi-0PmNkCHvS-e8xoOlg" target="_blank" rel="noopener">Подготовить к инвестициям</a></div></article></div></div>
+</div></section>
+<div class="node-wrap reveal"><div class="node"><span>VI</span></div></div>
+<section class="level level-final" id="level-6" data-level="6"><div class="level-shell"><div class="level-content reveal">
+<div class="level-kicker">Уровень VI · вершина маршрута</div><h2>Невозможный уровень: стать инвестором</h2>
+<p class="level-description">Когда вы прошли путь от идеи до работающего бизнеса, вы можете стать тем, кто помогает другим начинать. 
+Высший уровень — не только строить свое, но и поддерживать чужие команды, идеи и будущее.</p>
+<p class="motto">«Создатель становится проводником для новых создателей.»</p><div class="final-options"><div>Инвестировать в перспективные проекты</div><div>Стать наставником</div><div>Войти в экспертный совет</div>
+<div>Создать фонд или сообщество</div><div>Поддержать молодые команды</div><div>Передавать опыт и создавать возможности</div></div><a class="btn small" href="{% url 'startpage:contact' %}" target="_blank" rel="noopener">Хочу стать инвестором</a>
+<p class="disclaimer">Инвестиционные решения требуют оценки рисков и профессиональной финансовой консультации. ИнноАвтор не гарантирует доходность инвестиций.</p></div>
+</div>
+</section>
+</section>
+
+
+<div class="container"><div class="cta-box reveal"><div class="eyebrow">Ваш ход</div><h2 class="section-title">Ваша идея уже может стать чем то больше</h2>
+<div class="hero-actions"><a class="btn" href="{% url 'projects:projects' %}">Создать проект</a>
+<a class="btn small" href="{% url 'projects:projects' %}" target="_blank" rel="noopener">Получить консультацию</a>
+</div></div></div>
+</main>
+
+<div class="progress-nav" aria-label="Навигация по уровням"><button data-target="#level-1">I</button><button data-target="#level-2">II</button><button data-target="#level-3">III</button>
+<button data-target="#level-4">IV</button><button data-target="#level-5">V</button><button data-target="#level-6">VI</button></div>
+<div class="notice" id="notice" role="status"></div>
+<br>
+</div>
+<footer class="footer footer-bg">
+			<div class="container">
+				<div class="row">
+					<div class="col-sm-4 col-lg-2 mb-4 mb-lg-0 text-left">
+						<h3 class="footer__title">Организация</h3>
+						<ul class="footer__link">
+							<li><a href="{% url 'startpage:liderplatform' %}">Структура платформы</a></li>
+						</ul>
+					</div>
+					<div class="col-sm-4 col-lg-2 mb-4 mb-lg-0 text-left">
+						<h3 class="footer__title">Полезные ссылки</h3>
+						<ul class="footer__link">
+							<li><a href="{% url 'startpage:workshop' %}">Вакансии</a></li>
+							<li><a href="https://pay.cloudtips.ru/p/925045f4">Вклады</a></li>
+
+						</ul>
+					</div>
+					<div class="col-sm-4 col-lg-2 mb-4 mb-lg-0 text-left">
+						<h3 class="footer__title">Для пользователей</h3>
+						<ul class="footer__link">
+							<li><a href="{% url 'startpage:documents' %}">Документы</a></li>
+							<li><a href="{% url 'startpage:shop' %}">Партнёры</a></li>
+							<li><a href="{% url 'startpage:service' %}">Услуги</a></li>
+						</ul>
+					</div>
+					<div class="col-sm-4 col-lg-2 mb-4 mb-lg-0 text-left">
+						<h3 class="footer__title">Информация</h3>
+						<ul class="footer__link">
+							<li><a href="{% url 'startpage:contact' %}">Связаться с нами</a></li>
+						</ul>
+					</div>
+					
+				</div>
+				<div class="d-sm-flex justify-content-between footer__bottom top-border">
+					<p><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+						ИнноАвтор &copy;
+						<script>document.write(new Date().getFullYear());</script> Все права защищены | Этот проект <i
+							class="fa fa-heart" aria-hidden="true"></i> производства <a href="https://t.me/shushpanov_official"
+							target="_blank">shushpanov_official</a>
+						<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+					</p>
+					<ul class="social-icons mt-2 mt-sm-0">
+
+						<li><a href="https://t.me/innoauthor" target="_blank"><i
+									class='fab fa-telegram'></i></a></li>
+
+						<li><a href="https://vk.com/innoauthor" target="_blank"><i class='fab fa-vk'></i> </a></li>
+
+					
+					</ul>
+				</div>
+			</div>
+		</footer>
+<script>
+// Smooth scroll
+const scrollToTarget = target => document.querySelector(target)?.scrollIntoView({behavior:'smooth',block:'start'});
+document.querySelectorAll('[data-scroll]').forEach(el=>el.addEventListener('click',()=>scrollToTarget(el.dataset.scroll)));
+// Intersection observer
+const observer=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible')}),{threshold:.12});document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
+const levels=document.querySelectorAll('.level');const levelObserver=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('active');document.querySelectorAll('.progress-nav button').forEach(b=>b.classList.toggle('active',b.dataset.target==='#'+e.target.id));const tone={"level-1":"#11213B","level-2":"#1A2149","level-3":"#123B48","level-4":"#30283A","level-5":"#2B1D45","level-6":"#3C281F"};document.body.style.background=`radial-gradient(circle at 50% 0%, ${tone[e.target.id]} 0%, #11213B 52%, #0A1528 100%)`}}),{threshold:.35});levels.forEach(l=>levelObserver.observe(l));
+// Progress navigation
+document.querySelectorAll('.progress-nav button').forEach(b=>b.addEventListener('click',()=>scrollToTarget(b.dataset.target)));
+// Expert filters
+const experts=[['Анна Волкова','Стратег по социальным и молодежным проектам','АВ',['idea','partners'],['Стратегия','Соцпроекты','Команда']],['Дмитрий Орлов','Предприниматель и трекер проектов','ДО',['idea','business'],['MVP','Трекинг','Бизнес']],['Максим Сергеев','Юрист по проектной деятельности','МС',['legal','idea'],['Договоры','Права','Проекты']],['Елена Кузнецова','Грантовый консультант','ЕК',['grants'],['Гранты','Заявки','Конкурсы']],['Алексей Романов','Эксперт по грантовым заявкам и сметам','АР',['grants'],['Сметы','KPI','Бюджет']],['Мария Белова','Юрист по ИП, ООО, НКО и договорам','МБ',['legal','business'],['ИП','ООО','НКО']],['Артем Данилов','Веб-разработчик и архитектор цифровых платформ','АД',['digital'],['Django','Платформы','Автоматизация']],['София Никитина','Дизайнер брендов, презентаций и цифровых продуктов','СН',['digital','idea'],['Бренд','UX/UI','Pitch Deck']],['Кирилл Морозов','Специалист по партнерствам и коммуникациям','КМ',['partners','business'],['Партнеры','Медиа','Переговоры']],['Павел Громов','Инвестиционный аналитик','ПГ',['invest'],['Финмодель','Аналитика','Инвесторы']],['Виктория Смирнова','Эксперт по привлечению инвестиций','ВС',['invest','business'],['Питч','Сделки','Рост']],['Екатерина Федорова','Бренд-стратег','ЕФ',['business','digital'],['Позиционирование','Бренд','Продажи']]];
+const grid=document.getElementById('experts-grid');grid.innerHTML=experts.map(e=>`<article class="expert-card reveal" data-cats="${e[3].join(' ')}"><div class="avatar">${e[2]}</div><h3>${e[0]}</h3><p>${e[1]}</p><div class="tags">${e[4].map(t=>`<span class="tag">${t}</span>`).join('')}</div><div class="card-actions"><button class="btn small modal-trigger" data-modal="booking-modal">Записаться</button><button class="btn small ghost notify" data-message="Профиль эксперта будет доступен в каталоге ИнноАвтор.">Подробнее</button></div></article>`).join('');document.querySelectorAll('#experts-grid .reveal').forEach(el=>observer.observe(el));
+document.querySelectorAll('.filter-btn').forEach(b=>b.addEventListener('click',()=>{document.querySelectorAll('.filter-btn').forEach(x=>x.classList.remove('active'));b.classList.add('active');const f=b.dataset.filter;document.querySelectorAll('.expert-card').forEach(c=>c.classList.toggle('hidden',f!=='all'&&!c.dataset.cats.includes(f)))}));
+// JurChain demo
+document.getElementById('jur-form').addEventListener('submit',e=>{e.preventDefault();if(document.getElementById('jur-input').value.trim())document.getElementById('ai-answer').classList.add('visible')});
+// Modal logic
+const openModal=id=>document.getElementById(id)?.classList.add('open');document.addEventListener('click',e=>{const trigger=e.target.closest('.modal-trigger');if(trigger)openModal(trigger.dataset.modal);if(e.target.classList.contains('modal')||e.target.closest('.modal-close'))e.target.closest('.modal')?.classList.remove('open');const n=e.target.closest('.notify');if(n){const notice=document.getElementById('notice');notice.textContent=n.dataset.message||'Действие доступно в полной версии платформы.';notice.classList.add('show');setTimeout(()=>notice.classList.remove('show'),3500)}if(e.target.closest('.demo-form')){const form=e.target.closest('.demo-form');if(e.target.type==='submit'){e.preventDefault();if(form.checkValidity()){form.closest('.modal').classList.remove('open');const notice=document.getElementById('notice');notice.textContent='Заявка принята — в демо-версии она не отправляется на сервер.';notice.classList.add('show');setTimeout(()=>notice.classList.remove('show'),3500)}}}});document.addEventListener('keydown',e=>{if(e.key==='Escape')document.querySelectorAll('.modal.open').forEach(m=>m.classList.remove('open'))});
+// Mobile menu
+const toggle=document.querySelector('.menu-toggle'),links=document.querySelector('.nav-links');toggle.addEventListener('click',()=>{const open=links.classList.toggle('open');toggle.setAttribute('aria-expanded',open);toggle.textContent=open?'×':'☰'});links.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{links.classList.remove('open');toggle.setAttribute('aria-expanded','false');toggle.textContent='☰'}));
+// Заменить YOUR_LOGIN, OutSum, InvId и параметры подписи на реальные реквизиты Robokassa.
+</script>
+<script src="{% static 'vendor/jquery/jquery-3.2.1.min.js'%}"></script>	
+	<script src="{% static 'vendor/bootstrap/bootstrap.bundle.min.js'%}"></script>
+	<script src="{% static 'vendor/owl-carousel/owl.carousel.min.js'%}"></script>
+  
+  <script>
+    var dropToggle = $('.menu_right > li').has('ul').children('a');
+        dropToggle.on('click', function() {
+          dropToggle.not(this).closest('li').find('ul').slideUp(200);
+          $(this).closest('li').children('ul').slideToggle(200);
+          return false;
+        });
+
+        $( ".toggle_icon" ).on('click', function() {
+          $( 'body' ).toggleClass( "open" );
+        });
+  </script>
+
+<script>
+(function () {
+    var start = document.getElementById('lockStart');
+    var overlay = document.getElementById('lockOverlay');
+
+    // Вычисляем, где начинается блокировка
+    var rect = start.getBoundingClientRect();
+    var scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+    var top = rect.bottom + scrollTop;
+
+    overlay.style.top = top + 'px';
+
+    // Кнопка разблокировки
+    document.getElementById('unlockBtn').addEventListener('click', function () {
+        overlay.style.display = 'none';
+    });
+})();
+</script>
+<script>
+(function () {
+    var locked = document.getElementById('lockedLevels');
+    var btn = document.getElementById('unlockBtn');
+    if (!locked || !btn) return;
+
+    // Изначально блокируем клики на контенте (кроме кнопки)
+    locked.style.pointerEvents = 'none';
+    btn.style.pointerEvents = 'auto';
+
+    btn.addEventListener('click', function () {
+        locked.classList.add('unlocked');
+        locked.style.pointerEvents = 'auto';
+        // Затемнение и кнопку НЕ убираем
+    });
+})();
+</script>
+</body></html>

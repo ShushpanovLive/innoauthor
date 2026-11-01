@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 {% load static %}
 
 <head>
-	<meta charset="UTF-8">
+    <meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta http-equiv="X-UA-Compatible" content="ie=edge">
 	<title>ИнноАвтор</title>
@@ -19,56 +19,598 @@
 	<link rel="stylesheet" href="{% static 'vendor/bootstrap/bootstrap.min.css'%}">
 	<link rel="stylesheet" href="{% static 'css/style.css' %}">
 	<link rel="stylesheet" href="{% static 'css/fix-header.css' %}">
-	<style>
-		body {
-			margin: 0;
-			padding: 0;
-			overflow-x: hidden;
-		}
+    <style>
+        :root {
+            --color-primary: #FF6A0E;
+            --color-primary-hover: #E55F0D;
+            --color-secondary: #1a2f52;
+            --color-text: #FFFFFF;
+            --color-text-secondary: #e2e8f0;
+            --color-border: #334466;
+            --color-success: #FF6A0E;
+            --color-background: #11213B;
+        }
 
-		/* Main wrapper for the page layout */
-		.page-wrapper {
-			position: relative;
-		}
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-		/* Position the header absolutely on top of the hero */
-		.header-wrapper {
-			position: absolute;
-			top: 0;
-			left: 0;
-			right: 0;
-			z-index: 1500;
-			background: transparent !important;
-		}
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            color: var(--color-text);
+            background: var(--color-background);
+            line-height: 1.6;
+        }
 
-		/* Position the hero at the very top of the page */
-		.fullscreen-hero {
-			position: relative;
-			z-index: 1;
-			overflow: hidden;
-			min-height: 100vh;
-			top: 0;
-			left: 0;
-			right: 0;
-		}
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
 
-		.hero {
-			height: 100vh;
-			position: relative;
-			z-index: 1;
-		}
+        /* Header */
+        header {
+            background: linear-gradient(135deg, #11213B 0%, #1a2f52 100%);
+            color: white;
+            padding: 80px 20px;
+            text-align: center;
+        }
 
-		.hero .owl-carousel,
-		.hero__slide {
-			height: 100%;
-		}
+        .header-content h1 {
+            font-size: 5.25rem;
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
 
-		.hero__slide img {
-			height: 100%;
-			object-fit: cover;
-			width: 100%;
-		}
+        .utp {
+            font-size: 1.5rem;
+            margin-bottom: 30px;
+            opacity: 0.95;
+            font-weight: 500;
+        }
 
+        .cta-button {
+            display: inline-block;
+            background: var(--color-primary);
+            color: white;
+            padding: 16px 40px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: transform 0.3s, box-shadow 0.3s;
+            margin-top: 20px;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Audience Selector */
+        .audience-btn {
+            background: transparent;
+            color: white;
+            border: 2px solid var(--color-primary);
+            padding: 12px 30px;
+            border-radius: 8px;
+            font-size: 1.4rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .audience-btn:hover {
+            background: var(--color-primary);
+            transform: translateY(-2px);
+        }
+
+        .audience-btn.active {
+            background: var(--color-primary);
+        }
+
+        .content-section {
+            display: none;
+        }
+
+        .content-section.active {
+            display: block;
+        }
+
+        /* Pain Points Section */
+        .pain-section {
+            background: #0d1829;
+            padding: 60px 20px;
+        }
+
+        .pain-section h2 {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 40px;
+            color: #FFFFFF;
+        }
+
+        .pain-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .pain-card {
+            background: #1a2f52;
+            padding: 30px;
+            border-radius: 12px;
+            border-left: 4px solid #FF6A0E;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        .pain-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 15px;
+            color: #FF6A0E;
+        }
+
+        .pain-card p {
+            color: #e2e8f0;
+        }
+
+        .solution-box {
+            background: linear-gradient(135deg, #FF6A0E 0%, #E55F0D 100%);
+            color: white;
+            padding: 40px;
+            border-radius: 12px;
+            text-align: center;
+            margin-top: 40px;
+        }
+
+        .solution-box h3 {
+            font-size: 2rem;
+            margin-bottom: 15px;
+        }
+
+        /* Product Section */
+        .product-section {
+            padding: 80px 20px;
+            background: var(--color-secondary);
+        }
+
+        .product-section h2 {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 50px;
+            color: #FFFFFF;
+        }
+
+        .product-section p {
+            color: #e2e8f0;
+        }
+
+        .product-features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .feature-card {
+            background: #0d1829;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s;
+            border: 1px solid #334466;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--color-primary);
+        }
+
+        .feature-icon {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+        }
+
+        .feature-card h3 {
+            font-size: 1.4rem;
+            margin-bottom: 15px;
+            color: var(--color-primary);
+        }
+
+        .feature-card p {
+            color: #e2e8f0;
+        }
+
+        /* Benefits Section */
+        .benefits-section {
+            padding: 80px 20px;
+            background: #11213B;
+        }
+
+        .benefits-section h2 {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 50px;
+            color: #FFFFFF;
+        }
+
+        .benefits-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+        }
+
+        .benefit-item {
+            background: #1a2f52;
+            padding: 25px;
+            border-radius: 10px;
+            border: 2px solid var(--color-primary);
+        }
+
+        .benefit-item h4 {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+            color: var(--color-primary);
+        }
+
+        .benefit-item p {
+            color: #e2e8f0;
+        }
+
+        /* Founder Section */
+        .founder-section {
+            padding: 80px 20px;
+            background: var(--color-secondary);
+        }
+
+        .founder-info p {
+            color: #e2e8f0;
+        }
+
+        .credentials li {
+            color: #e2e8f0;
+        }
+
+        .founder-content {
+            display: flex;
+            gap: 50px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .founder-image {
+            width: 250px;
+            height: 250px;
+            flex-shrink: 0;
+            background: linear-gradient(135deg, var(--color-primary) 0%, #E55F0D 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 5rem;
+            color: white;
+        }
+
+        .founder-info {
+            flex: 1;
+            min-width: 300px;
+        }
+
+        .founder-info h2 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+
+        .founder-info h3 {
+            font-size: 1.5rem;
+            color: var(--color-primary);
+            margin-bottom: 20px;
+        }
+
+        .credentials {
+            list-style: none;
+            margin-top: 20px;
+        }
+
+        .credentials li {
+            padding: 10px 0;
+            padding-left: 30px;
+            position: relative;
+        }
+
+        .credentials li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: var(--color-success);
+            font-weight: bold;
+            font-size: 1.3rem;
+        }
+
+        /* Cases Section */
+        .cases-section {
+            padding: 80px 20px;
+            background: #11213B;
+        }
+
+        .cases-section h2 {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 50px;
+            color: #FFFFFF;
+        }
+
+        .cases-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+        }
+
+        .case-card {
+            background: #1a2f52;
+            border: 2px solid var(--color-border);
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        }
+
+        .case-card p {
+            color: #e2e8f0;
+        }
+
+        .case-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .case-avatar {
+            width: 60px;
+            height: 60px;
+            background: var(--color-primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        .case-info h4 {
+            font-size: 1.2rem;
+            margin-bottom: 5px;
+            color: #FFFFFF;
+        }
+
+        .case-info p {
+            color: var(--color-text-secondary);
+            font-size: 0.9rem;
+        }
+
+        .case-result {
+            background: #0d1829;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 15px;
+            border-left: 4px solid var(--color-primary);
+            color: #e2e8f0;
+        }
+
+        .stars {
+            color: #fbbf24;
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+        }
+
+        /* Pricing Section */
+        .pricing-section {
+            padding: 80px 20px;
+            background: var(--color-secondary);
+        }
+
+        .pricing-section h2 {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 50px;
+        }
+
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .pricing-card {
+            background: #0d1829;
+            border-radius: 12px;
+            padding: 40px 30px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+            text-align: center;
+            transition: transform 0.3s;
+            border: 1px solid #334466;
+        }
+
+        .pricing-card h3 {
+            color: #FFFFFF;
+        }
+
+        .pricing-card:hover {
+            transform: scale(1.05);
+        }
+
+        .pricing-card.featured {
+            border: 3px solid var(--color-primary);
+            position: relative;
+        }
+
+        .featured-badge {
+            position: absolute;
+            top: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--color-primary);
+            color: white;
+            padding: 5px 20px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        .pricing-card h3 {
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+        }
+
+        .price {
+            font-size: 3rem;
+            font-weight: 700;
+            color: var(--color-primary);
+            margin: 20px 0;
+        }
+
+        .price-period {
+            font-size: 1rem;
+            color: var(--color-text-secondary);
+        }
+
+        .pricing-features {
+            list-style: none;
+            margin: 30px 0;
+            text-align: left;
+        }
+
+        .pricing-features li {
+            padding: 12px 0;
+            padding-left: 30px;
+            position: relative;
+            color: #e2e8f0;
+        }
+
+        .pricing-features li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: var(--color-success);
+            font-weight: bold;
+        }
+
+        .pricing-button {
+            display: inline-block;
+            background: var(--color-primary);
+            color: white;
+            padding: 14px 35px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: background 0.3s;
+            margin-top: 20px;
+        }
+
+        .pricing-button:hover {
+            background: var(--color-primary-hover);
+        }
+
+        /* FAQ Section */
+        .faq-section {
+            padding: 80px 20px;
+            background: #11213B;
+        }
+
+        .faq-section h2 {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 50px;
+            color: #FFFFFF;
+        }
+
+        .faq-list {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .faq-item {
+            background: #1a2f52;
+            border: 1px solid var(--color-border);
+            border-radius: 8px;
+            margin-bottom: 15px;
+            overflow: hidden;
+        }
+
+        .faq-question {
+            padding: 20px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 1.1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: background 0.3s;
+            color: #FFFFFF;
+        }
+
+        .faq-question:hover {
+            background: #0d1829;
+        }
+
+        .faq-answer {
+            padding: 0 20px;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s, padding 0.3s;
+        }
+
+        .faq-answer p {
+            color: #e2e8f0;
+        }
+
+        .faq-item.active .faq-answer {
+            padding: 20px;
+            max-height: 500px;
+        }
+
+        .faq-toggle {
+            font-size: 1.5rem;
+            transition: transform 0.3s;
+        }
+
+        .faq-item.active .faq-toggle {
+            transform: rotate(45deg);
+        }
+
+        /* Guarantee Section */
+        .guarantee-section {
+            background: linear-gradient(135deg, #FF6A0E 0%, #E55F0D 100%);
+            color: white;
+            padding: 60px 20px;
+            text-align: center;
+        }
+
+        .guarantee-section h2 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+
+        .guarantee-section p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .audience-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin: 30px 0;
+            flex-wrap: wrap
+        }
+		
 		.canvus_menu {
 			position: fixed;
 			top: 23px;
@@ -98,311 +640,1262 @@
 			display: inline-block;
 			margin-top: 15px;
 		}
-	</style>
+
+        /* Footer */
+        footer {
+            background: #11213B;
+            color: white;
+            padding: 40px 20px;
+            text-align: center;
+        }
+
+        .footer-cta {
+            margin-bottom: 30px;
+        }
+
+        .footer-cta h3 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+        }
+
+        /* Responsive */
+        @media (max-width: 1200px) {
+
+            .header-content h1 {
+                font-size: 5rem;
+            }
+
+            .container {
+                max-width: 100%;
+            }
+
+            .product-features {
+                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            }
+
+            .benefits-grid {
+                grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            }
+        }
+
+        @media (max-width: 992px) {
+            .header-content h1 {
+                font-size: 4.8rem;
+            }
+
+            .utp {
+                font-size: 1.3rem;
+            }
+
+            .pain-grid {
+                grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            }
+
+            .cases-grid {
+                grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            }
+
+            .pricing-grid {
+                grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header-content h1 {
+                font-size: 5rem;
+            }
+
+            .utp {
+                font-size: 1.2rem;
+            }
+
+            .pain-section h2,
+            .product-section h2,
+            .benefits-section h2,
+            .cases-section h2,
+            .pricing-section h2,
+            .faq-section h2,
+            .guarantee-section h2 {
+                font-size: 1.8rem;
+            }
+
+            .founder-content {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .founder-image {
+                margin: 0 auto;
+                width: 200px;
+                height: 200px;
+                flex: none;
+                font-size: 4rem;
+            }
+
+            .founder-info {
+                min-width: auto;
+                width: 100%;
+            }
+
+            .pricing-grid {
+                grid-template-columns: 1fr;
+                max-width: 100%;
+            }
+
+            .pricing-card {
+                margin: 0 auto;
+                max-width: 450px;
+            }
+
+            .pain-grid,
+            .product-features,
+            .benefits-grid,
+            .cases-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .cta-button {
+                padding: 14px 30px;
+                font-size: 1rem;
+            }
+
+            .feature-card,
+            .pain-card,
+            .case-card {
+                padding: 25px;
+            }
+        }
+
+        @media (max-width: 576px) {
+            header {
+                padding: 60px 15px;
+            }
+
+            .header-content h1 {
+                font-size: 3.7rem;
+            }
+
+            .audience-buttons {
+                flex-direction: column;
+                align-items: center;
+                width: 100%;
+            }
+
+            .audience-btn {
+                width: 100%;
+                max-width: 280px;
+                margin: 0 auto;
+                padding: 12px 20px;
+                box-sizing: border-box;
+            }
+
+            .utp {
+                font-size: 1.1rem;
+            }
+
+            .pain-section h2,
+            .product-section h2,
+            .benefits-section h2,
+            .cases-section h2,
+            .pricing-section h2,
+            .faq-section h2,
+            .guarantee-section h2 {
+                font-size: 1.5rem;
+            }
+
+            .container {
+                padding: 0 15px;
+            }
+
+            .pain-section,
+            .product-section,
+            .benefits-section,
+            .founder-section,
+            .cases-section,
+            .pricing-section,
+            .guarantee-section,
+            .faq-section {
+                padding: 50px 15px;
+            }
+
+            .founder-image {
+                width: 150px;
+                height: 150px;
+                flex: none;
+                font-size: 3rem;
+            }
+
+            .founder-info {
+                min-width: auto;
+                width: 100%;
+            }
+
+            .founder-info h2 {
+                font-size: 2rem;
+            }
+
+            .founder-info h3 {
+                font-size: 1.3rem;
+            }
+
+            .price {
+                font-size: 2.5rem;
+            }
+
+            .pricing-card {
+                padding: 30px 20px;
+                max-width: 100%;
+            }
+
+            .pricing-features {
+                font-size: 0.95rem;
+            }
+
+            .pricing-button {
+                width: 100%;
+            }
+
+            .cta-button {
+                width: 100%;
+                text-align: center;
+            }
+        }
+
+        @media (max-width: 400px) {
+            .header-content h1 {
+                font-size: 2.6rem;
+            }
+
+            .audience-buttons {
+                flex-direction: column;
+                align-items: center;
+                width: 100%;
+            }
+
+            .audience-btn {
+                width: 100%;
+                max-width: 280px;
+                margin: 0 auto;
+                padding: 12px 20px;
+                box-sizing: border-box;
+            }
+
+            .utp {
+                font-size: 1rem;
+            }
+
+            .pain-card h3,
+            .feature-card h3 {
+                font-size: 1.1rem;
+            }
+
+            .feature-icon {
+                font-size: 2rem;
+            }
+
+            .pricing-card h3 {
+                font-size: 1.5rem;
+            }
+
+            .price {
+                font-size: 2rem;
+            }
+
+            .price-period {
+                font-size: 0.9rem;
+            }
+
+            .pricing-card {
+                padding: 25px 15px;
+            }
+        }
+    </style>
 </head>
 
 <body>
 	<div class="page-wrapper">
-		<!-- Header with menu buttons - higher z-index -->
-		<div class="header-wrapper">
-			{% include 'includes/header.html' %}
-		</div>
+    <!-- Header -->
+	
+	<!-- Header with menu buttons - higher z-index -->
+        <div class="header-wrapper">
+            {% include 'includes/header.html' %}
+        </div>
+    <header>
 
-		<!-- Fullscreen hero that goes behind header -->
-		<div class="fullscreen-hero">
-			<div class="hero">
-				<div class="owl-carousel owl-theme heroCarousel">
-					<div class="item">
-						<div class="hero__slide">
-							<img src="{% static 'img/baner1.png'%}" alt="">
-							
-						</div>
-					</div>
-					<div class="item">
-						<div class="hero__slide">
-							<img src="{% static 'img/baner2.png'%}" alt="">
-							
-						</div>
-					</div>
-					<div class="item">
-						<div class="hero__slide">
-							<img src="{% static 'img/baner3.png'%}" alt="">
-							
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
+        <div class="container">
+            <div class="header-content">
+                <h1>ИнноАвтор</h1>
+                <p class="utp">Комплексная поддержка инновационных проектов от идеи до реализации</p>
 
-		<section class="about section-margin mb-5">
-			<div class="container">
-				<div class="row align-items-center">
-					<div class="col-md-5">
-						<div class="about__img text-center text-md-left mb-5 mb-md-0">
-							<img class="img-fluid" src="{% static 'img/mike.png'%}"   alt="">
-							<a href="#/" class="about__img__date text-center">
-								<h5>Желаю вашему проекту вырасти и стать нашим общим будущим.</h5>
-								<i>Создатель ИнноАвтор <br> Шушпанов Михаил Константинович</i>
-							</a>
-						</div>
-					</div>
-					<div class="col-md-7 pl-xl-5">
-						<div class="section-intro">
-						
-							<h2 class="section-intro__subtitle">Добро пожаловать в ИнноАвтор</h2>
-						</div>
-						<p>ИнноАвтор — платформа для тех, кто превращает идеи в реальные проекты. Мы объединяем творцов, предпринимателей и инноваторов, помогая им развиваться, защищать свои права и находить единомышленников. Здесь ваши идеи получают поддержку, экспертную оценку и шанс изменить мир. Присоединяйтесь к ИнноАвтор — создавайте, вдохновляйте, реализуйте!
-</p>
-						<a class="btn btn--rightBorder mt-3" href="{% url 'accounts:accounts' %}">Регистрация</a>
-					</div>
-				</div>
-			</div>
-		</section>
+                <!-- Audience Selector -->
+                <div class="audience-buttons">
+                    <button class="audience-btn active" data-audience="startup">Для стартапов</button>
+                    <button class="audience-btn" data-audience="business">Для бизнеса</button>
+                    <button class="audience-btn" data-audience="investor">Для инвесторов</button>
+                </div>
 
+                <a href="{% url 'accounts:accounts' %}" class="cta-button">Начать сотрудничество</a>
+            </div>
+        </div>
+    </header>
 
+    <!-- Pain Points - Startup -->
+    <section class="pain-section content-section active" data-content="startup">
+        <div class="container">
+            <h2>Знакомые проблемы для стартапов?</h2>
+            <div class="pain-grid">
+                <div class="pain-card">
+                    <h3>🚫 Не получается написать грант?</h3>
+                    <p>Сложная терминология, непонятные требования и постоянные отказы из-за ошибок в заявке</p>
+                </div>
+                <div class="pain-card">
+                    <h3>⚖️ Не знаете как защитить проект?</h3>
+                    <p>Риск кражи идеи, незащищенная интеллектуальная собственность, неправильное оформление патентов
+                    </p>
+                </div>
+                <div class="pain-card">
+                    <h3>💰 Нет доступа к финансированию?</h3>
+                    <p>Инвесторы не понимают ценность проекта, отсутствуют связи в индустрии, непонятная стратегия
+                        монетизации</p>
+                </div>
+                <div class="pain-card">
+                    <h3>📊 Не понимаете, как вывести продукт на рынок?</h3>
+                    <p>Сложности в формировании стратегии монетизации, трудности в определении целевой аудитории, отстуствие опыта продаж</p>
+                </div>
+                <div class="pain-card">
+                    <h3>⏰ Теряете время на бюрократию?</h3>
+                    <p>Бесконечные согласования, необоснованные процедуры, отсутствие четкого плана действий</p>
+                </div>
+                <div class="pain-card">
+                    <h3>🤝 Нет профессиональной команды?</h3>
+                    <p>Работаете в одиночку, не хватает экспертизы в ключевых областях, нет менторской поддержки</p>
+                </div>
+            </div>
 
-		<section class="overview">
-			<div class="container">
-				<div class="row">
-					<div class="col-sm-6 col-lg-4 col-xl-3 mb-4 mb-xl-0">
-						<div class="media align-items-center overview__single">
-							<span class="overview__single__icon"><i class="ti-crown"></i></span>
-							<div class="media-body">
-								<h3>Доступ</h3>
-								<p>К широкой эксклюзивной информации</p>
-							</div>
-						</div>
-					</div>
+            <div class="solution-box">
+                <h3>ИнноАвтор решает все эти проблемы!</h3>
+                <p>Наша команда профессионалов из разных сфер (юристы, экономисты, маркетологи, инженеры,
+                    бизнес-консультанты) объединяет опыт для вашего успеха</p>
+            </div>
+        </div>
+    </section>
 
-					<div class="col-sm-6 col-lg-4 col-xl-3 mb-4 mb-xl-0">
-						<div class="media align-items-center overview__single">
-							<span class="overview__single__icon"><i class="ti-face-smile"></i></span>
-							<div class="media-body">
-								<h3>Проекты</h3>
-								<p>И идеи, которые способны воодушевить</p>
-							</div>
-						</div>
-					</div>
+    <!-- Product Description - Startup -->
+    <section class="product-section content-section active" data-content="startup">
+        <div class="container">
+            <h2>Что такое ИнноАвтор?</h2>
+            <p style="text-align: center; font-size: 1.2rem; max-width: 800px; margin: 0 auto 40px;">
+                <strong>ИнноАвтор</strong> — это первая в России комплексная платформа для поддержки инновационных
+                проектов на всех этапах развития. Мы объединяем экспертизу профессионалов из разных отраслей для создания
+                синергии и достижения максимального результата.
+            </p>
 
-					<div class="col-sm-6 col-lg-4 col-xl-3 mb-4 mb-xl-0">
-						<div class="media align-items-center overview__single">
-							<span class="overview__single__icon"><i class="ti-user"></i></span>
-							<div class="media-body">
-								<h3>Эксперты</h3>
-								<p>Предоставят консультацию по проекту</p>
-							</div>
-						</div>
-					</div>
+            <div class="product-features">
+                <div class="feature-card">
+                    <div class="feature-icon">🎯</div>
+                    <h3>Индивидуальный подход</h3>
+                    <p>Разрабатываем уникальную стратегию для каждого проекта с учетом специфики отрасли и целей</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">👥</div>
+                    <h3>Мультидисциплинарная команда</h3>
+                    <p>Юристы, экономисты, маркетологи, инженеры и бизнес-консультанты поддержат вас на пути к успеху</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📈</div>
+                    <h3>Полный цикл поддержки</h3>
+                    <p>От идеи до выхода на рынок: проработка концепции, защита ИС, привлечение финансирования, вывод
+                        продукта</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">⚡</div>
+                    <h3>Ускоренные процессы</h3>
+                    <p>Опыт автоматизации рутинных задач позволяет сократить сроки проработки ваших идей</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🔒</div>
+                    <h3>Защита интересов</h3>
+                    <p>Юридическое сопровождение на каждом этапе, полная конфиденциальность</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🌐</div>
+                    <h3>Доступ к экосистеме</h3>
+                    <p>Работа с инвесторами, партнёрами, органами власти и ключевыми представителями отрасли</p>
+                </div>
+            </div>
+        </div>
+    </section>
 
-					<div class="col-sm-6 col-lg-4 col-xl-3 mb-4 mb-xl-0">
-						<div class="media align-items-center overview__single">
-							<span class="overview__single__icon"><i class="ti-gift"></i></span>
-							<div class="media-body">
-								<h3>Получи</h3>
-								<p>Презентацию как выиграть грант</p><br>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</section>
+    <!-- Benefits - Startup -->
+    <section class="benefits-section content-section active" data-content="startup">
+        <div class="container">
+            <h2>Почему выбирают ИнноАвтор</h2>
+            <div class="benefits-grid">
+                <div class="benefit-item">
+                    <h4>💎 Рост инвестиций на 90%</h4>
+                    <p>У пользователей ИнноАвтор выше шансы привлечь инвестиции и получить финансирование</p>
+                </div>
+                <div class="benefit-item">
+                    <h4>⏱  Экономия 6-ти месяцев</h4>
+                    <p>Профессиональная команда ускоряет все процессы от подачи заявки до получения результата</p>
+                </div>
+                <div class="benefit-item">
+                    <h4>🎓 10+ лет опыта</h4>
+                    <p>Основатели и эксперты много лет работают в инновационной сфере</p>
+                </div>
+                <div class="benefit-item">
+                    <h4>🏆 100 реализованных проектов</h4>
+                    <p>Портфолио экспертов включает стартапы, корпоративные инновации и государственные программы</p>
+                </div>
+                <div class="benefit-item">
+                    <h4>💰 от 500 тыс ₽ минимальная сумма</h4>
+                    <p>Стартовая сумма, с которой мы начинаем привлечение финансирования в ваш проект</p>
+                </div>
+                <div class="benefit-item">
+                    <h4>🔐 Полная конфиденциальность</h4>
+                    <p>Защита интеллектуальной собственности</p>
+                </div>
+                <div class="benefit-item">
+                    <h4>📞 Круглосуточная поддержка</h4>
+                    <p>Персональный менеджер на связи в любое время</p>
+                </div>
+                <div class="benefit-item">
+                    <h4>🎯 Надёжный результат</h4>
+                    <p>Мы работаем на ваш успех и открыты к разным форматам сотрудничества</p>
+                </div>
+            </div>
+        </div>
+    </section>
 
-
-		<section class="portfolio section-margin">
-			<div class="container">
-				<div class="section-intro">
-					<h4 class="section-intro__title">мы для вас</h4>
-					<h2 class="section-intro__subtitle bottom-border">Расширяем ваши возможности</h2>
-				</div>
-
-				<div class="row align-items-end pb-md-5 mb-4">
-					<div class="col-md-7 mb-4 mb-md-0">
-						<div class="portfolio__img">
-							<img class="img-fluid" src="{% static 'img/0ex.png'%}" alt="">
-						</div>
-					</div>
-					<div class="col-md-5 mb-5 pl-xl-5">
-						<h4 class="section-intro__title left-border">С нами</h4>
-						<h2 class="section-intro__subtitle small">Соберите команду!  </h2>
-						<p>Даже если вы начинаете проект в одиночку — помните, один в поле не воин. Найдите единомышленников, которые разделяют ваши цели и вдохновляются вашим видением. Вместе вы сможете достичь гораздо большего!
-						</p>
-						<a class="btn btn--rightBorder mt-3" href="{% url 'accounts:accounts' %}">Регистрация</a>
-					</div>
-				</div>
-
-				<div class="row align-items-end pb-md-5 mb-4">
-					<div class="col-md-5 mb-5 pr-xl-5 order-2 order-md-1">
-						<h4 class="section-intro__title left-border">С нами</h4>
-						<h2 class="section-intro__subtitle small">Запустите с нуля!</h2>
-						<p>Даже если вы пока не знаете, с чего начать — не волнуйтесь. Здесь вы всегда сможете получить совет, услышать взгляд со стороны и найти поддержку на каждом этапе вашего пути.</p>
-						<a class="btn btn--rightBorder mt-3" href="{% url 'accounts:accounts' %}">Регистрация</a>
-					</div>
-					<div class="col-md-7 mb-4 mb-md-0 order-1 order-md-2">
-						<div class="portfolio__img">
-							<img class="img-fluid" src="{% static 'img/1ex.png'%}" alt="">
-						</div>
-					</div>
-				</div>
-
-				<div class="row align-items-end pb-md-5 mb-4">
-					<div class="col-md-7 mb-4 mb-md-0">
-						<div class="portfolio__img">
-							<img class="img-fluid" src="{% static 'img/3ex.png'%}" alt="">
-						</div>
-					</div>
-
-					<div class="col-md-5 mb-5 pl-xl-5">
-						<h4 class="section-intro__title left-border">С нами</h4>
-						<h2 class="section-intro__subtitle small">Защитите идею!</h2>
-						<p>Если вы беспокоитесь, что идею могут украсть — знайте: принцип первоисточника работает на нашей платформе. Заявите о своей разработке здесь, и вы всегда сможете сослаться на дату публикации как на официальное подтверждение вашего авторства.</p>
-						<a class="btn btn--rightBorder mt-3" href="{% url 'accounts:accounts' %}">Регистрация</a>
-					</div>
-				</div>
-
-				<div class="row align-items-end pb-md-5 mb-4">
-					<div class="col-md-5 mb-5 pr-xl-5 order-2 order-md-1">
-						<h4 class="section-intro__title left-border">С нами</h4>
-						<h2 class="section-intro__subtitle small">Привлекайте средства!</h2>
-						<p>Гранты, вклады, пожертвования — представьте, сколько финансовых возможностей откроется для вашего проекта. С нами поиск поддержки становится проще и эффективнее — достаточно приложить усилия.</p>
-						<a class="btn btn--rightBorder mt-3" href="{% url 'accounts:accounts' %}">Регистрация</a>
-					</div>
-
-					<div class="col-md-7 order-1 order-md-2 mb-4 mb-md-0">
-						<div class="portfolio__img">
-							<img class="img-fluid" src="{% static 'img/2ex.png'%}" alt="">
-						</div>
-					</div>
-				</div>
-
-				<div class="row align-items-end pb-md-5 mb-4">
-					<div class="col-md-7 mb-4 mb-md-0">
-						<div class="portfolio__img">
-							<img class="img-fluid" src="{% static 'img/4ex.png'%}" alt="">
-						</div>
-					</div>
-
-					<div class="col-md-5 mb-5 pl-xl-5">
-						<h4 class="section-intro__title left-border">С нами</h4>
-						<h2 class="section-intro__subtitle small">Вы всегда в выигрыше!</h2>
-						<p>Даже если финансирование пока не пришло — вы не проиграете. Используйте нашу платформу для демонстрации проектов, привлекайте внимание и получайте сертификаты от наших экспертов. Каждый шаг приближает вас к успеху!</p>
-						<a class="btn btn--rightBorder mt-3" href="{% url 'accounts:accounts' %}">Регистрация</a>
-					</div>
-				</div>
+    <!-- Founder - Startup -->
+    <section class="founder-section content-section active" data-content="startup">
+        <div class="container">
+            <div class="founder-content">
+                
 
 
-			</div>
-		</section>
+                <div class="founder-info">
+                    <h2>Об основателе</h2>
+                    <h3>Михаил Шушпанов</h3>
+                    <p style="font-size: 1.1rem; margin-bottom: 20px;">
+                        Эксперт в области права и инновационного предпринимательства с 10 летним опытом. Создатель экосистемы ИнноАвтор и наставник более 20 успешных проектов.
+                    </p>
+                    <ul class="credentials">
+                        <li>Сертифицированный IT‑консультант</li>
+                        <li>Федеральный эксперт Комиссии «Живи и работай в России»</li>
+						<li>Победитель акселератора 4.0 РТУ МИРЭА, автор двух зарегистрированных программ для ЭВМ.</li>
+                        <li>Автор мотивационно‑правового блога Shushpanov_Live</li>
+                        <li>Преподаватель правовых дисциплин</li>
+                        <li>Экс-глава IT-подразделения ГК «P-group»</li>
+						<li>Академик наук</li>
+						 <li>Юрисконсульт</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
 
-
-		<section class="tips tips-bg">
-			<div class="container">
-				<div class="row align-items-center">
-					<div class="col-lg-7 mb-4 mb-lg-0">
-						<h2 class="section-intro__subtitle">Готовы присоединиться?</h2>
-						<p>Тогда регистрируйтесь прямо сейчас и соберите свою команду! Ваш путь к успеху начинается здесь и сегодня.</p>
-					</div>
-					<div class="col-lg-5 text-center text-lg-right">
-						<a class="btn btn-dark btn--leftBorder btn--rightBorder" href="{% url 'accounts:accounts' %}">Регистрация</a>
-					</div>
-				</div>
-			</div>
-		</section>
-
-
-		<footer class="footer footer-bg">
-			<div class="container">
-				<div class="row">
-					<div class="col-sm-4 col-lg-2 mb-4 mb-lg-0 text-left">
-						<h3 class="footer__title">Организация</h3>
-						<ul class="footer__link">
-							<li><a href="{% url 'startpage:liderplatform' %}">Структура платформы</a></li>
-						</ul>
-					</div>
-					<div class="col-sm-4 col-lg-2 mb-4 mb-lg-0 text-left">
-						<h3 class="footer__title">Полезные ссылки</h3>
-						<ul class="footer__link">
-							<li><a href="{% url 'startpage:workshop' %}">Вакансии</a></li>
-							<li><a href="https://pay.cloudtips.ru/p/925045f4">Вклады</a></li>
-
-						</ul>
-					</div>
-					<div class="col-sm-4 col-lg-2 mb-4 mb-lg-0 text-left">
-						<h3 class="footer__title">Для пользователей</h3>
-						<ul class="footer__link">
-							<li><a href="{% url 'startpage:documents' %}">Документы</a></li>
-							<li><a href="{% url 'startpage:shop' %}">Партнёры</a></li>
-							<li><a href="{% url 'startpage:service' %}">Услуги</a></li>
-						</ul>
-					</div>
-					<div class="col-sm-4 col-lg-2 mb-4 mb-lg-0 text-left">
-						<h3 class="footer__title">Информация</h3>
-						<ul class="footer__link">
-							<li><a href="{% url 'startpage:contact' %}">Связаться с нами</a></li>
-						</ul>
-					</div>
+    <!-- Cases - Startup -->
+    <section class="cases-section content-section active" data-content="startup">
+        <div class="container">
+            <h2>Эксперты</h2>
+            <div class="row">
+				<div class="col-sm-6 col-lg-4">
+				
+				
+				  <div class="media service__single">
 					
+					<div class="media-body">
+					  <img class="img-fluid" src="{% static 'img/exper2.png'%}"   alt=">
+						<br>
+					   <span class="service__singleIcon""></span>
+					<h3><font color="#ffffff"><b>Ширинов Илья <br>Агилович</b></font></h3></span>
+				 
+					 <p><font color="#ffffff">Руководитель направления SMM, эксперт в области управления социальными сетями и личным брендом</font>
+					  </p>
+					</div>
+				  </div>
+			  
+				  
+		               </div>
+                                   <div class="col-sm-6 col-lg-4">
+
+				 
+                                  <div class="media service__single">
+                                        
+                                        <div class="media-body">
+						<img class="img-fluid" src="{% static 'img/exp2.png'%}"   alt=">
+            					 <br>
+                                           <span class="service__singleIcon""></span>
+                                          <h3><font color="#ffffff"><b>Рыбкин Владислав <br>Денисович</b></font></h3></span>
+                                         
+					<p><font color="#ffffff">Руководитель направления краудфандинг, Торговый представитель проектов, Эксперт в сфере коммерческих выступлений</font>        
+                                          </p>
+                                        </div>
+                                  </div>
+                                   
+				
 				</div>
-				<div class="d-sm-flex justify-content-between footer__bottom top-border">
-					<p><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-						ИнноАвтор &copy;
-						<script>document.write(new Date().getFullYear());</script> Все права защищены | Этот проект <i
-							class="fa fa-heart" aria-hidden="true"></i> производства <a href="https://t.me/shushpanov_official"
-							target="_blank">shushpanov_official</a>
-						<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-					</p>
-					<ul class="social-icons mt-2 mt-sm-0">
+                                   <div class="col-sm-6 col-lg-4">
 
-						<li><a href="https://t.me/innoauthor" target="_blank"><i
-									class='fab fa-telegram'></i></a></li>
+                                 
+                                  <div class="media service__single">
+                                        
+                                        <div class="media-body">
+						<img class="img-fluid" src="{% static 'img/expern1.png'%}"   alt=">
+						 <br>
+                                           <span class="service__singleIcon""></span>
+                                          <h3><font color="#ffffff"><b>Волошенко Анастасия <br>Александровна</b></font></h3></span> 
+                                          <p><font color="#ffffff">Руководитель направления стратегического планирования, Маркетолог, Эксперт по грантам и конкурсному отбору
+                                          </p>
+                                        </div>
+                                  </div>
+                                   
 
-						<li><a href="https://vk.com/innoauthor" target="_blank"><i class='fab fa-vk'></i> </a></li>
+                                </div>
+			    
+  
+                              
+		
 
-					
-					</ul>
-				</div>
-			</div>
-		</footer>
+                                       
+			</div>		
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing - Startup -->
+    <section class="pricing-section content-section active" id="pricing" data-content="startup">
+        <div class="container">
+            <h2>Услуги</h2>
+            <div class="pricing-grid">
+                <div class="pricing-card">
+                    
+                    <div class="price">Старт</div>
+                    <p class="price-period">Для новых пользователей</p>
+                    <ul class="pricing-features">
+                        <li>Консультация по грантам</li>
+                        <li>Анализ проекта и рекомендации</li>
+                        <li>Помощь в подготовке заявки</li>
+                        <li>Юридическая экспертиза документов</li>
+                        <li>Поиск инвестора</li>
+                        <li>3 месяца сопровождения</li>
+                    </ul>
+                    <a href="{% url 'accounts:accounts' %}" class="pricing-button">Выбрать</a>
+                </div>
+
+                <div class="pricing-card featured">
+                    <div class="featured-badge">Популярный</div>
+                    
+                    <div class="price">Профи</div>
+                    <p class="price-period">Проектная работа</p>
+                    <ul class="pricing-features">
+                        <li>Полная подготовка грантовой заявки</li>
+                        <li>Регистрация и защита ИС (1 патент)</li>
+                        <li>Бизнес-план и финансовая модель</li>
+                        <li>Маркетинговая стратегия</li>
+                        <li>Подготовка презентации для инвесторов</li>
+                        <li>Поиск партнеров и инвесторов</li>
+                        <li>Персональный менеджер 24/7</li>
+                        <li>6 месяцев сопровождения</li>
+                    </ul>
+                    <a href="{% url 'accounts:accounts' %}" class="pricing-button">Выбрать</a>
+                </div>
+
+                <div class="pricing-card">
+                    
+                    <div class="price">Эксперт</div>
+                    <p class="price-period">Ведение проекта</p>
+                    <ul class="pricing-features">
+                        <li>Полный цикл от идеи до рынка</li>
+                        <li>Неограниченные консультации</li>
+                        <li>Регистрация нескольких патентов</li>
+                        <li>Привлечение инвестиций</li>
+                        <li>Выход на международные рынки</li>
+                        <li>Участие в выставках и форумах</li>
+                        <li>Выделенная команда экспертов</li>
+                        <li>12 месяцев сопровождения</li>
+                    </ul>
+                    <a href="{% url 'accounts:accounts' %}" class="pricing-button">Обсудить</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Guarantee -->
+    <section class="guarantee-section">
+        <div class="container">
+            <h2>🛡️ Наши гарантии</h2>
+            <p>Мы обеспечиваем комплексное экспертное сопровождение на всех этапах подготовки и подачи заявки, разрабатываем индивидуальную стратегию и способствуем существенному повышению вероятности привлечения финансирования, а также успешному достижению ключевых показателей эффективности.</p>
+        </div>
+    </section>
+
+    <!-- BUSINESS CONTENT -->
+
+    <!-- Pain Points - Business -->
+    <section class="pain-section content-section" data-content="business">
+        <div class="container">
+            <h2>Вызовы для бизнеса?</h2>
+            <div class="pain-grid">
+                <div class="pain-card">
+                    <h3>🚀 Нужна инновационная трансформация?</h3>
+                    <p>Конкуренты внедряют новые технологии, рынок меняется, а ваш бизнес рискует отстать</p>
+                </div>
+                <div class="pain-card">
+                    <h3>💡 Есть идея, но нет команды для реализации?</h3>
+                    <p>Внутренние ресурсы ограничены, нет экспертизы в инновационных технологиях</p>
+                </div>
+                <div class="pain-card">
+                    <h3>📊 Сложно оценить перспективность проекта?</h3>
+                    <p>Неясен ROI инновационных проектов, риски не просчитаны, бюджет может быть потрачен впустую</p>
+                </div>
+                <div class="pain-card">
+                    <h3>🔄 Нужна оптимизация процессов?</h3>
+                    <p>Бизнес-процессы устарели, автоматизация отсутствует, производительность падает</p>
+                </div>
+                <div class="pain-card">
+                    <h3>🌍 Трудности в масштабировании бизнеса</h3>
+                    <p>Непонятно как масштабировать бизнес, нет стратегии экспансии, конкуренция высока</p>
+                </div>
+                <div class="pain-card">
+                    <h3>🤝 Нет доступа к инновационной экосистеме?</h3>
+                    <p>Отсутствие связей со стартапами, технологическими партнерами и экспертами</p>
+                </div>
+            </div>
+
+            <div class="solution-box">
+                <h3>ИнноАвтор — стратегический партнер для компаний, стремящихся к прогрессу.</h3>
+                <p>Помогаем компаниям внедрять прогрессивные технологии, оптимизировать процессы и выходить на новые рынки с проверенными решениями</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Product Description - Business -->
+    <section class="product-section content-section" data-content="business">
+        <div class="container">
+            <h2>Инновации для вашего бизнеса</h2>
+            <p style="text-align: center; font-size: 1.2rem; max-width: 800px; margin: 0 auto 40px;">
+                <strong>ИнноАвтор</strong> — стратегический партнер для компаний, стремящихся к инновационному развитию.
+                Мы помогаем внедрять передовые технологии, оптимизировать процессы и создавать конкурентные
+                преимущества.
+            </p>
+
+            <div class="product-features">
+                <div class="feature-card">
+                    <div class="feature-icon">🎯</div>
+                    <h3>Курс на прорыв</h3>
+                    <p>Разработка эффективной и перспективной стратегии с учетом специфики вашего бизнеса и целей развития</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🔍</div>
+                    <h3>Аудит и оценка проектов</h3>
+                    <p>Глубокий анализ инновационного потенциала, оценка рисков и просчет ROI</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">⚙️</div>
+                    <h3>Внедрение технологий</h3>
+                    <p>Полное сопровождение внедрения: от проработки решений до интеграции в технологические процессы</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🤝</div>
+                    <h3>Поиск стратегических партнеров</h3>
+                    <p>Доступ к проверенным стартапам и технологическим решениям через нашу экосистему</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📈</div>
+                    <h3>Оптимизация процессов</h3>
+                    <p>Автоматизация, lean-подход, внедрение лучших практик для роста эффективности</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🌐</div>
+                    <h3>Масштабирование бизнеса</h3>
+                    <p>Стратегии выхода на новые рынки, партнерства, франшизы и M&A сопровождение</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Benefits - Business -->
+    <section class="benefits-section content-section" data-content="business">
+        <div class="container">
+            <h2>Почему компании выбирают ИнноАвтор</h2>
+            <div class="benefits-grid">
+                <div class="benefit-item">
+                    <h4>🏢 Сильное экспертное сообщество</h4>
+                    <p>Работаем с крупными компаниями из 10+ отраслей экономики</p>
+                </div>
+                <div class="benefit-item">
+                    <h4>💰 Рост эффективности в среднем на 35%</h4>
+                    <p>Наши клиенты повышают операционную эффективность после внедрения решений</p>
+                </div>
+                <div class="benefit-item">
+                    <h4>⚡ От идеи до внедрения меньше чем за полгода</h4>
+                    <p>Ускоренный цикл разработки и интеграции инновационных проектов</p>
+                </div>
+                <div class="benefit-item">
+                    <h4>🎓 Экспертиза в 12-ти отраслях</h4>
+                    <p>Промышленность, ритейл, финтех, здравоохранение, логистика и другие</p>
+                </div>
+                <div class="benefit-item">
+                    <h4>📊 Измеримые результаты</h4>
+                    <p>KPI-driven подход с четкими метриками эффективности и ROI</p>
+                </div>
+                <div class="benefit-item">
+                    <h4>🔐 Конфиденциальность гарантирована</h4>
+                    <p>NDA, защита коммерческой информации и интеллектуальной собственности</p>
+                </div>
+                <div class="benefit-item">
+                    <h4>🌟 Доступ к лучшим практикам</h4>
+                    <p>Международный опыт и проверенные методологии инноваций</p>
+                </div>
+                <div class="benefit-item">
+                    <h4>🤝 Долгосрочное партнерство</h4>
+                    <p>Не разовые проекты, а стратегическое сопровождение развития</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Cases - 
+    <section class="cases-section content-section" data-content="business">
+        <div class="container">
+            <h2>Корпоративные кейсы</h2>
+            <div class="cases-grid">
+                <div class="case-card">
+                    <div class="case-header">
+                        <div class="case-avatar">П</div>
+                        <div class="case-info">
+                            <h4>Производственная компания</h4>
+                            <p>Машиностроение, 1200 сотрудников</p>
+                        </div>
+                    </div>
+                    <div class="stars">★★★★★</div>
+                    <p>"ИнноАвтор помог внедрить систему предиктивной аналитики для производственных линий. Это
+                        позволило сократить простои на 40% и снизить издержки на 25 млн рублей в год."</p>
+                    <div class="case-result">
+                        <strong>Результат:</strong> 40% сокращение простоев, экономия 25 млн ₽/год, ROI 320%
+                    </div>
+                </div>
+
+                <div class="case-card">
+                    <div class="case-header">
+                        <div class="case-avatar">Р</div>
+                        <div class="case-info">
+                            <h4>Ритейл-сеть</h4>
+                            <p>150 магазинов, 3500 сотрудников</p>
+                        </div>
+                    </div>
+                    <div class="stars">★★★★★</div>
+                    <p>"Разработали и внедрили омниканальную стратегию с AI-рекомендациями. За 8 месяцев онлайн-продажи
+                        выросли на 180%, средний чек увеличился на 35%."</p>
+                    <div class="case-result">
+                        <strong>Результат:</strong> +180% онлайн-продаж, +35% средний чек, новая выручка 420 млн ₽
+                    </div>
+                </div>
+
+                <div class="case-card">
+                    <div class="case-header">
+                        <div class="case-avatar">Л</div>
+                        <div class="case-info">
+                            <h4>Логистическая компания</h4>
+                            <p>Федеральный уровень, 800 сотрудников</p>
+                        </div>
+                    </div>
+                    <div class="stars">★★★★★</div>
+                    <p>"ИнноАвтор создал цифровую платформу управления логистикой с оптимизацией маршрутов. Время
+                        доставки сократилось на 25%, расходы на топливо на 18%."</p>
+                    <div class="case-result">
+                        <strong>Результат:</strong> -25% время доставки, -18% расходы, окупаемость за 11 месяцев
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+	Business -->
+
+    <!-- Pricing - Business -->
+    <section class="pricing-section content-section" id="pricing-business" data-content="business">
+        <div class="container">
+            <h2>Тарифы для бизнеса</h2>
+            <div class="pricing-grid">
+                <div class="pricing-card">
+                    
+                    <div class="price">Советник</div>
+                    <p class="price-period">На один проект (1-3 месяца)</p>
+                    <ul class="pricing-features">
+                        <li>Аудит инновационного потенциала</li>
+                        <li>Стратегия цифровой трансформации</li>
+                        <li>Дорожная карта внедрения</li>
+                        <li>Оценка проектов</li>
+                        <li>Поиск технологических решений</li>
+                    </ul>
+                    <a href="{% url 'accounts:accounts' %}" class="pricing-button">Обсудить</a>
+                </div>
+
+                <div class="pricing-card featured">
+                    <div class="featured-badge">Популярный</div>
+                 
+                    <div class="price">Помощник</div>
+                    <p class="price-period">На один проект (3-9 месяцев)</p>
+                    <ul class="pricing-features">
+                        <li>Полный цикл внедрения решения</li>
+                        <li>Интеграция с существующими системами</li>
+                        <li>Обучение персонала</li>
+                        <li>Пилотный запуск и тестирование</li>
+                        <li>Поддержка и оптимизация</li>
+                        <li>Измерение эффективности</li>
+                        <li>Гарантия результата</li>
+                    </ul>
+                    <a href="{% url 'accounts:accounts' %}" class="pricing-button">Начать</a>
+                </div>
+
+                <div class="pricing-card">
+               
+                    <div class="price">Партнёр</div>
+                    <p class="price-period">Долгосрочное сотрудничество</p>
+                    <ul class="pricing-features">
+                        <li>Стратегическое сопровождение</li>
+                        <li>Приоритетный доступ к стартапам</li>
+                        <li>Корпоративный акселератор</li>
+                        <li>Инвестиционная поддержка</li>
+                        <li>Неограниченные консультации</li>
+                        <li>Выделенная команда</li>
+                        <li>Выход на международные рынки</li>
+                    </ul>
+                    <a href="{% url 'accounts:accounts' %}" class="pricing-button">Связаться</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- INVESTOR CONTENT -->
+
+    <!-- Pain Points - Investor -->
+    <section class="pain-section content-section" data-content="investor">
+        <div class="container">
+            <h2>Задачи для инвесторов?</h2>
+            <div class="pain-grid">
+                <div class="pain-card">
+                    <h3>🔍 Сложно найти качественные проекты?</h3>
+                    <p>Большое число посредственных стартапов, нет времени на тщательный отбор, высокий риск ошибки</p>
+                </div>
+                <div class="pain-card">
+                    <h3>📊 Нужна глубокая экспертиза для оценки?</h3>
+                    <p>Технологии сложные, рынки специфические, без профильных экспертов оценка затруднена</p>
+                </div>
+                <div class="pain-card">
+                    <h3>💰 Как снизить риски?</h3>
+                    <p>Жизнеспособность проектов под вопросом, команда ещё не подтверждена, бизнес‑модель находится на ранней стадии и требует доработки</p>
+                </div>
+                <div class="pain-card">
+                    <h3>🚀 Хотите увеличить доходность портфеля?</h3>
+                    <p>Стартапы в портфеле нуждаются в поддержке, но нет ресурсов для операционного участия</p>
+                </div>
+                <div class="pain-card">
+                    <h3>🤝 Нужен доступ к безопасной и привлекательной сделке?</h3>
+                    <p>На рынке полно незащищенных сделок, лучшие проекты уходят к другим, конкуренция за раунды высока</p>
+                </div>
+                <div class="pain-card">
+                    <h3>📈 Как масштабировать портфельные компании?</h3>
+                    <p>Нет экспертизы для помощи в росте, стартапы буксуют, потенциал не раскрывается</p>
+                </div>
+            </div>
+
+            <div class="solution-box">
+                <h3>ИнноАвтор — ваш партнер по инвестициям!</h3>
+                <p>Отбираем лучшие проекты, проводим глубокую экспертизу, помогаем портфельным компаниям расти и
+                    достигать выдающихся результатов</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Product Description - Investor -->
+    <section class="product-section content-section" data-content="investor">
+        <div class="container">
+            <h2>Инвестиционные возможности</h2>
+            <p style="text-align: center; font-size: 1.2rem; max-width: 800px; margin: 0 auto 40px;">
+                <strong>ИнноАвтор</strong> — инвестиционный партнер для фондов, бизнес-ангелов и корпоративных венчуров.
+                Предоставляем доступ к проверенным инновационным проектам и сопровождаем портфельные компании.
+            </p>
+
+            <div class="product-features">
+                <div class="feature-card">
+                    <div class="feature-icon">🎯</div>
+                    <h3>Качественная экспертиза</h3>
+                    <p>Проводим технологическую, рыночную и финансовую комплексную проверку от профильных специалистов</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🔬</div>
+                    <h3>Глубокая экспертиза</h3>
+                    <p>Технологический, рыночный и финансовый due diligence от профильных специалистов</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📈</div>
+                    <h3>Пост-инвестиционная поддержка</h3>
+                    <p>Помогаем портфельным компаниям в операционном управлении, стратегии и масштабировании</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🤝</div>
+                    <h3>Со-инвестирование</h3>
+                    <p>Возможность со-инвестирования в проекты с другими фондами и бизнес-ангелами</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🌐</div>
+                    <h3>Доступ к экосистеме</h3>
+                    <p>Взаимодействуем со стартапами, бизнесом и корпорациями, выстраивая формат стратегических инвестиций и партнёрств.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">💼</div>
+                    <h3>Сопровождение сделок</h3>
+                    <p>Сопровождаем сделку от согласования условий до закрытия раунда, обеспечивая юридическую поддержку на каждом этапе.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Benefits - Investor -->
+    <section class="benefits-section content-section" data-content="investor">
+        <div class="container">
+            <h2>Преимущества для инвесторов</h2>
+            <div class="benefits-grid">
+                <div class="benefit-item">
+                    <h4>🎯 Топ проекты</h4>
+                    <p>Строгий отбор — формируем список из самых перспективных проектов с высоким потенциалом</p>
+                </div>
+                <div class="benefit-item">
+                    <h4>📊 Рост инвестиционной эффективности</h4>
+                    <p>Проекты получают дополнительные возможности для увеличения доходности и более эффективного использования инвестиций</p>
+                </div>
+                <div class="benefit-item">
+                    <h4>🚀 Поддержка роста компаний</h4>
+                    <p>Мы помогаем портфельным компаниям выстраивать процессы, усиливать продажи и улучшать управленческие решения, создавая условия для ускоренного роста бизнеса</p>
+                </div>
+                <div class="benefit-item">
+                    <h4>🔍 Комплексная проверка бизнеса</h4>
+                    <p>Технологический, рыночный, финансовый и юридический анализ каждого проекта</p>
+                </div>
+                 <!-- Benefits - 
+				<div class="benefit-item">
+                    <h4>💰 15+ успешных выходов</h4>
+                    <p>Trade sales, IPO и вторичные продажи с средним multiple 4.2x</p>
+                </div>
+                <div class="benefit-item">
+                    <h4>🤝 Сеть со-инвесторов</h4>
+                    <p>Доступ к синдицированным сделкам с топовыми фондами и инвесторами</p>
+                </div>
+                <div class="benefit-item">
+                    <h4>🏆 200+ проектов в базе</h4>
+                    <p>Постоянный поток качественных инвестиционных возможностей</p>
+                </div>
+                <div class="benefit-item">
+                    <h4>⚡ Операционная экспертиза</h4>
+                    <p>Помогаем портфельным компаниям масштабироваться, а не только финансируем</p>
+                </div>
+				Investor -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Cases - 
+    <section class="cases-section content-section" data-content="investor">
+        <div class="container">
+            <h2>Инвестиционные кейсы</h2>
+            <div class="cases-grid">
+                <div class="case-card">
+                    <div class="case-header">
+                        <div class="case-avatar">В</div>
+                        <div class="case-info">
+                            <h4>Венчурный фонд "Альфа"</h4>
+                            <p>Seed/Series A, AUM $50M</p>
+                        </div>
+                    </div>
+                    <div class="stars">★★★★★</div>
+                    <p>"ИнноАвтор привел 8 качественных сделок за год. 6 из них вошли в наш портфель. Уровень экспертизы
+                        и качество deal flow значительно выше, чем у других источников."</p>
+                    <div class="case-result">
+                        <strong>Результат:</strong> 8 сделок, 6 инвестиций, средняя оценка pre-money $2.5M
+                    </div>
+                </div>
+
+                <div class="case-card">
+                    <div class="case-header">
+                        <div class="case-avatar">Б</div>
+                        <div class="case-info">
+                            <h4>Бизнес-ангел Игорь К.</h4>
+                            <p>Инвестиции в EdTech и HealthTech</p>
+                        </div>
+                    </div>
+                    <div class="stars">★★★★★</div>
+                    <p>"Инвестировал в 3 проекта через ИнноАвтор. Одна компания уже привлекла Series A с оценкой 5x к
+                        моей входной точке. Профессиональная поддержка стартапов после инвестиций — ключевое отличие."
+                    </p>
+                    <div class="case-result">
+                        <strong>Результат:</strong> 3 инвестиции, 1 exit (5x), 2 в активном росте
+                    </div>
+                </div>
+
+                <div class="case-card">
+                    <div class="case-header">
+                        <div class="case-avatar">К</div>
+                        <div class="case-info">
+                            <h4>Корпоративный венчур</h4>
+                            <p>CVC крупной промышленной группы</p>
+                        </div>
+                    </div>
+                    <div class="stars">★★★★★</div>
+                    <p>"ИнноАвтор помог структурировать наш CVC, привлек 12 стартапов для пилотов, 4 из которых мы
+                        инвестировали. Теперь это стратегические партнеры материнской компании."</p>
+                    <div class="case-result">
+                        <strong>Результат:</strong> Запуск CVC, 12 пилотов, 4 инвестиции, синергия с бизнесом
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>Investor -->
+
+    <!-- Pricing - Investor -->
+    <section class="pricing-section content-section" id="pricing-investor" data-content="investor">
+        <div class="container">
+            <h2>Тарифы для инвесторов</h2>
+            <div class="pricing-grid">
+                <div class="pricing-card">
+                    
+                    <div class="price">Сделка</div>
+                    <p class="price-period">Годовая подписка</p>
+                    <ul class="pricing-features">
+                        <li>Доступ к базе проверенных проектов</li>
+                        <li>Приглашение на pitch-сессии</li>
+                        <li>Базовая проверка бизнес-проектов</li>
+                        <li>Приоритет в со-инвестировании</li>
+                        <li>Аналитические отчеты</li>
+                    </ul>
+                    <a href="{% url 'accounts:accounts' %}" class="pricing-button">Подключить</a>
+                </div>
+
+                <div class="pricing-card featured">
+                    <div class="featured-badge">Рекомендуем</div>
+                    
+                    <div class="price">Рост</div>
+                    <p class="price-period">Годовая подписка</p>
+                    <ul class="pricing-features">
+                        <li>Все из тарифа «Сделка»</li>
+                        <li>Комплексная проверка бизнес-проектов</li>
+                        <li>Сопровождение сделок</li>
+                        <li>Индивидуальный поиск</li>
+                        <li>Неограниченные консультации</li>
+                        <li>Участие в закрытых раундах</li>
+                    </ul>
+                    <a href="{% url 'accounts:accounts' %}" class="pricing-button">Начать</a>
+                </div>
+
+                <div class="pricing-card">
+                    
+                    <div class="price">Кейс</div>
+                    <p class="price-period">Стратегическое партнерство</p>
+                    <ul class="pricing-features">
+                        <li>Все из тарифа «Рост»</li>
+                        <li>Со-инвестирование в проекты</li>
+                        <li>Управление портфелем</li>
+                        <li>Операционная поддержка компаний</li>
+                        <li>Организация выходов</li>
+                        <li>Готовая модель для инвестиций</li>
+                        <li>Пост-инвестиционная поддержка</li>
+                    </ul>
+                    <a href="{% url 'accounts:accounts' %}" class="pricing-button">Обсудить</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="faq-section content-section active" data-content="startup">
+        <div class="container">
+            <h2>Частые вопросы</h2>
+            <div class="faq-list">
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>Сколько времени занимает получение гранта?</span>
+                        <span class="faq-toggle">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>В среднем от 3 до 6 месяцев с момента подачи заявки до получения финансирования. Мы
+                            сопровождаем на всех этапах и ускоряем процессы.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>Какие гранты вы помогаете получить?</span>
+                        <span class="faq-toggle">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Мы консультируем по широкому спектру грантовых программ: российских 
+						(включая Фонд содействия инновациям, «Сколково» и региональные инициативы), 
+						международных, а также по корпоративным акселераторам.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>Что если грант не получим?</span>
+                        <span class="faq-toggle">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Получение гранта всегда зависит от решения экспертов и комиссий, а также от процедуры проверки, поэтому результат невозможно гарантировать. В случае отказа по одной заявке мы помогаем доработать проект и подать его на другие подходящие грантовые программы или конкурсы.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>Как защищается конфиденциальность проекта?</span>
+                        <span class="faq-toggle">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>ИнноАвтор — это интернет‑портал, который помогает зафиксировать факт вашей разработки. Если вы публикуете проект на нашей платформе, мы фиксируем дату и время её регистрации. В случае спорных авторских вопросов мы по запросу предоставим материалы, подтверждающие момент размещения и регистрации вашей разработки на платформе.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>Подходит ли ИнноАвтор для проектов на ранней стадии?</span>
+                        <span class="faq-toggle">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Да! Мы специализируемся на проектах от идеи до масштабирования. Для ранних стадий предлагаем
+                            тариф "Старт", который включает анализ, рекомендации и помощь в первых шагах.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>Можно ли работать удаленно?</span>
+                        <span class="faq-toggle">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Конечно! 70% наших клиентов работают с нами удаленно из разных регионов России и стран СНГ.
+                            Все коммуникации проходят онлайн, документы подписываются электронно.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer footer-bg">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-4 col-lg-2 mb-4 mb-lg-0 text-left">
+                    <h3 class="footer__title">Организация</h3>
+                    <ul class="footer__link">
+                        <li><a href="{% url 'startpage:liderplatform' %}">Структура платформы</a></li>
+                    </ul>
+                </div>
+                <div class="col-sm-4 col-lg-2 mb-4 mb-lg-0 text-left">
+                    <h3 class="footer__title">Полезные ссылки</h3>
+                    <ul class="footer__link">
+                        <li><a href="{% url 'startpage:workshop' %}">Вакансии</a></li>
+                        <li><a href="https://pay.cloudtips.ru/p/925045f4">Вклады</a></li>
+
+                    </ul>
+                </div>
+                <div class="col-sm-4 col-lg-2 mb-4 mb-lg-0 text-left">
+                    <h3 class="footer__title">Для пользователей</h3>
+                    <ul class="footer__link">
+                        <li><a href="{% url 'startpage:documents' %}">Документы</a></li>
+                        <li><a href="{% url 'startpage:shop' %}">Партнёры</a></li>
+                        <li><a href="{% url 'startpage:service' %}">Услуги</a></li>
+                    </ul>
+                </div>
+                <div class="col-sm-4 col-lg-2 mb-4 mb-lg-0 text-left">
+                    <h3 class="footer__title">Информация</h3>
+                    <ul class="footer__link">
+                        <li><a href="{% url 'accounts:accounts' %}">Связаться с нами</a></li>
+                    </ul>
+                </div>
+
+            </div>
+            <div class="d-sm-flex justify-content-between footer__bottom top-border">
+                <p><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                    ИнноАвтор &copy;
+                    <script>document.write(new Date().getFullYear());</script> Все права защищены | Этот проект <i
+                        class="fa fa-heart" aria-hidden="true"></i> производства <a
+                        href="https://t.me/shushpanov_official" target="_blank">shushpanov_official</a>
+                    <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                </p>
+                <ul class="social-icons mt-2 mt-sm-0">
+
+                    <li><a href="https://t.me/innoauthor" target="_blank"><i class='fab fa-telegram'></i></a></li>
+
+                    <li><a href="https://vk.com/innoauthor" target="_blank"><i class='fab fa-vk'></i> </a></li>
 
 
+                </ul>
+            </div>
+        </div>
+    </footer>
+	
+	
+	<script src="{% static 'vendor/jquery/jquery-3.2.1.min.js'%}"></script>
+	<script src="{% static 'vendor/bootstrap/bootstrap.bundle.min.js'%}"></script>
+	<script src="{% static 'vendor/owl-carousel/owl.carousel.min.js'%}"></script>
 
-		<script src="{% static 'vendor/jquery/jquery-3.2.1.min.js'%}"></script>
-		<script src="{% static 'vendor/bootstrap/bootstrap.bundle.min.js'%}"></script>
-		<script src="{% static 'vendor/owl-carousel/owl.carousel.min.js'%}"></script>
+    <script>
+        // FAQ Toggle
+        document.querySelectorAll('.faq-question').forEach(question => {
+            question.addEventListener('click', () => {
+                const faqItem = question.parentElement;
+                const isActive = faqItem.classList.contains('active');
 
-		<script>
-			var testimonialCarousel = $('.testimonialCarousel');
-			testimonialCarousel.owlCarousel({
-				loop: true,
-				margin: 80,
-				startPosition: 2,
-				nav: false,
-				responsiveClass: true,
-				responsive: {
-					0: {
-						items: 1
-					},
-					1000: {
-						items: 2,
-						loop: true
-					}
-				}
-			});
+                // Close all FAQs
+                document.querySelectorAll('.faq-item').forEach(item => {
+                    item.classList.remove('active');
+                });
 
-			var heroCarousel = $('.heroCarousel');
-			heroCarousel.owlCarousel({
-				loop: true,
-				margin: 10,
-				nav: false,
-				startPosition: 1,
-				responsiveClass: true,
-				responsive: {
-					0: {
-						items: 1
-					}
-				}
-			});
+                // Open clicked FAQ if it wasn't active
+                if (!isActive) {
+                    faqItem.classList.add('active');
+                }
+            });
+        });
 
-			var dropToggle = $('.menu_right > li').has('ul').children('a');
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Audience Selector Logic
+        const audienceBtns = document.querySelectorAll('.audience-btn');
+        const contentSections = document.querySelectorAll('.content-section');
+
+        audienceBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const audience = btn.dataset.audience;
+
+                // Update active button
+                audienceBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+
+                // Show corresponding content
+                contentSections.forEach(section => {
+                    if (section.dataset.content === audience) {
+                        section.classList.add('active');
+                    } else {
+                        section.classList.remove('active');
+                    }
+                });
+            });
+        });
+		
+		var dropToggle = $('.menu_right > li').has('ul').children('a');
 			dropToggle.on('click', function () {
 				dropToggle.not(this).closest('li').find('ul').slideUp(200);
 				$(this).closest('li').children('ul').slideToggle(200);
@@ -412,9 +1905,7 @@
 			$(".toggle_icon").on('click', function () {
 				$('body').toggleClass("open");
 			});
-
-		</script>
-	</div>
+    </script>
 </body>
 
 </html>

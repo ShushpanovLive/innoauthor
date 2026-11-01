@@ -42,3 +42,15 @@ class Newspost(models.Model):
 
     def __str__(self):
         return self.namepost
+
+class Expert(models.Model):
+    name = models.CharField('ФИО', max_length=100)
+    photo = models.ImageField('Фото', upload_to='experts/', blank=True)
+    text = models.TextField('Описание', max_length=200)
+    
+    def __str__(self):
+        return self.name
+    
+    class Meta:
+        verbose_name = 'Эксперта'
+        verbose_name_plural = 'Эксперты'

@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.contrib import messages
-
+from users.models import User
 from .models import ContactMessage
 
 
@@ -14,9 +14,16 @@ def register(request):
 def vhod(request):
     return render(request, 'vhod.html')
 
+from users.models import User
+
 def liderplatform(request):
-    return render(request, 'liderplatform.html')
+    users_count = User.objects.count()
     
+    return render(request, 'liderplatform.html', {
+        'users_count': users_count,
+    })
+
+
 def workshop(request):
     return render(request, 'workshop.html')
 

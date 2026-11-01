@@ -105,6 +105,46 @@
 		.modal-backdrop.show {
 			opacity: 0.5;
 		}
+		.card-img-wrapper {
+			position: relative;
+		}
+
+		.project-status-badge {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    width: 40px;
+    height: 40px;
+    background: #ff6a0e;
+    color: #fff;
+    font-weight: 700;
+    font-size: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+    transform: rotate(45deg);
+    z-index: 2;
+    animation: pulseGlow 1.8s ease-in-out infinite;
+}
+
+.project-status-badge span {
+    transform: rotate(-45deg);
+    display: block;
+}
+
+@keyframes pulseGlow {
+    0%, 100% {
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25),
+                    0 0 10px #ff6a0e,
+                    0 0 20px rgba(255, 106, 14, 0.5);
+    }
+    50% {
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25),
+                    0 0 18px #ff6a0e,
+                    0 0 35px rgba(255, 106, 14, 0.9);
+    }
+}
 	</style>
 </head>
 
@@ -155,23 +195,29 @@
 			
 
 			<!-- Status filter -->
-			<div class="row mb-4">
-				<div class="col-12">
-					<div class="status-wrapper">
-						<h5 class="mb-2">Статус проекта:</h5>
-						<a href="{% url 'projects:projects' %}{% if current_tag %}?tag={{ current_tag }}{% endif %}"
-							class="btn {% if not current_status %}btn-primary{% else %}btn-outline-primary{% endif %} mr-2 mb-2">
-							Все статусы
-						</a>
-						{% for status_code, status_name in status_choices %}
-						<a href="?{% if current_tag %}tag={{ current_tag }}&{% endif %}status={{ status_code }}"
-							class="btn {% if current_status == status_code %}btn-primary{% else %}btn-outline-primary{% endif %} mr-2 mb-2">
-							{{ status_name }}
-						</a>
-						{% endfor %}
-					</div>
-				</div>
-			</div>
+			<!-- Status filter -->
+<div class="row mb-4">
+    <div class="col-12">
+        <div class="status-wrapper">
+            <h5 class="mb-2">Статус проекта:</h5>
+            <a href="{% url 'projects:projects' %}{% if current_tag %}?tag={{ current_tag }}{% endif %}"
+                class="btn {% if not current_status %}btn-primary{% else %}btn-outline-primary{% endif %} mr-2 mb-2">
+                Все статусы
+            </a>
+            {% for status_code, status_name in status_choices %}
+                {% if not user.is_staff and status_code == 'prospective' %}
+                    <!-- Скрываем для не-админов -->
+                {% else %}
+                <a href="?{% if current_tag %}tag={{ current_tag }}&{% endif %}status={{ status_code }}"
+                    class="btn {% if current_status == status_code %}btn-primary{% else %}btn-outline-primary{% endif %} mr-2 mb-2">
+                    {{ status_name }}
+                </a>
+                {% endif %}
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
 
 			<!-- Projects List -->
 			<div class="row">
@@ -186,12 +232,37 @@
 				{% for project in projects %}
 				<div class="col-lg-6 mb-4">
 					<div class="card h-100">
-						{% if project.project_photo %}
-						<a href="{% url 'projects:project_detail' project_slug=project.slug %}" class="card-img-link">
-							<img src="{{ project.project_photo.url }}" class="card-img-top" alt="{{ project.title }}"
-								style="height: 200px; object-fit: cover;">
-						</a>
-						{% endif %}
+						<div class="card-img-wrapper" style="position: relative;">
+    {% if project.project_photo %}
+    <a href="{% url 'projects:project_detail' project_slug=project.slug %}" class="card-img-link">
+        <img src="{{ project.project_photo.url }}" class="card-img-top" alt="{{ project.title }}"
+             style="height: 200px; object-fit: cover;">
+    </a>
+    {% else %}
+    <!-- Заглушка, если нет фото -->
+    <div class="card-img-link"
+         style="height: 200px; background: #f0f0f0; display: flex; align-items: center; justify-content: center; color: #999;">
+        Нет фото
+    </div>
+    {% endif %}
+
+    <!-- Бейдж статуса (всегда виден) -->
+    <div class="project-status-badge">
+        <span>
+            {% if project.status == 'concept' %}
+                I
+            {% elif project.status == 'launch' %}
+                II
+            {% elif project.status == 'ready_project' %}
+                III
+            {% elif project.status == 'business' %}
+                IV
+            {% elif project.status == 'prospective' %}
+                V
+            {% endif %}
+        </span>
+    </div>
+</div>
 						<div class="card-body">
 							<h5 class="card-title">
 								<a href="{% url 'projects:project_detail' project_slug=project.slug %}">

@@ -116,7 +116,7 @@ hr {
 
 .section-intro__title {
   font-size: 0.75rem;
-  color: #FF9027;
+  color: #FF6A0E;
   margin-bottom: 1rem;
   text-transform: uppercase;
 }
@@ -131,7 +131,7 @@ hr {
   display: block;
   min-width: 20px;
   height: 2px;
-  background: #FF9027;
+  background: #FF6A0E;
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
@@ -160,7 +160,7 @@ hr {
   position: absolute;
   bottom: 0;
   left: 0;
-  background: #FF9027;
+  background: #FF6A0E;
 }
 
 .section-intro__subtitle.small {
@@ -225,7 +225,7 @@ hr {
   top: 0px;
   right: 0px;
   padding: 15px;
-  background: #FF9027;
+  background: #FF6A0E;
   display: inline-block;
   z-index: 11;
 }
@@ -357,7 +357,7 @@ hr {
   border-radius: 0px;
   height: 40px;
   padding: 0px 28px 0px 15px;
-  background: #FF9027;
+  background: #FF6A0E;
   line-height: 40px;
   font-size: 12px;
   color: #fff;
@@ -445,7 +445,7 @@ hr {
 }
 
 .side_menu .menu_right li a:hover {
-  color: #FF9027;
+  color: #FF6A0E;
 }
 
 .side_menu .menu_right li ul {
@@ -474,7 +474,7 @@ hr {
 }
 
 .side_menu .menu_right li ul li:hover a {
-  color: #FF9027;
+  color: #FF6A0E;
 }
 
 /* Home Banner Area css
@@ -510,13 +510,13 @@ hr {
 }
 
 .breadcrumb .btn {
-  background: #FF9027;
-  border-color: #FF9027;
+  background: #FF6A0E;
+  border-color: #FF6A0E;
   color: #000000;
 }
 
 .breadcrumb .btn.btn--rightBorder:after {
-  background: #FF9027;
+  background: #FF6A0E;
   right: -1.5rem;
 }
 
@@ -538,7 +538,7 @@ hr {
 }
 
 .btn {
-  border: 2px solid #FF9027;
+  border: 2px solid #FF6A0E;
   border-radius: 0;
   text-transform: uppercase;
   font-size: 0.75rem;
@@ -546,7 +546,7 @@ hr {
   color: #fff;
   padding: .5rem 1.6rem;
   position: relative;
-  background: #FF9027;
+  background: #FF6A0E;
 }
 
 .btn--rightBorder:after {
@@ -558,7 +558,7 @@ hr {
   right: -1.25rem;
   min-width: 1.25rem;
   height: 2px;
-  background: #FF9027;
+  background: #FF6A0E;
 }
 
 .btn--leftBorder:before {
@@ -574,37 +574,37 @@ hr {
 }
 
 .btn:hover {
-  background: #FF9027;
-  border-color: #FF9027;
+  background: #FF6A0E;
+  border-color: #FF6A0E;
   color: #262533;
 }
 
 .btn:hover.btn--rightBorder:after {
-  background: #FF9027;
+  background: #FF6A0E;
 }
 
 .btn:hover.btn--leftBorder:before {
-  background: #FF9027;
+  background: #FF6A0E;
 }
 
 .btn.active {
-  background: #FF9027;
-  border-color: #FF9027;
+  background: #FF6A0E;
+  border-color: #FF6A0E;
   color: #262533;
 }
 
 .btn.active.btn--rightBorder:after {
-  background: #FF9027;
+  background: #FF6A0E;
 }
 
 .btn.active.btn--leftBorder:before {
-  background: #FF9027;
+  background: #FF6A0E;
 }
 
 .btn-dark {
   background: #262533;
   border-color: #262533;
-  color: #FF9027;
+  color: #FF6A0E;
   padding: .7rem 1.4rem;
 }
 
@@ -618,7 +618,7 @@ hr {
 
 .btn-dark:hover {
   background: #262533;
-  color: #FF9027;
+  color: #FF6A0E;
   border-color: #262533;
 }
 
@@ -639,7 +639,7 @@ hr {
   position: absolute;
   bottom: 11%;
   left: 13%;
-  background: #FF9027;
+  background: #FF6A0E;
   color: #000000;
   padding: .9rem 1.2rem 1rem 1.2rem;
   transition: all .4s;
@@ -675,7 +675,7 @@ hr {
 .overview__single__icon i,
 .overview__single__icon span {
   font-size: 2.625rem;
-  color: #FF9027;
+  color: #FF6A0E;
 }
 
 .overview__single .media-body h3 {
@@ -690,7 +690,7 @@ hr {
 }
 
 .overview__single:hover {
-  background: #FF9027;
+  background: #FF6A0E;
   color: #262533;
 }
 
@@ -704,7 +704,7 @@ hr {
 }
 
 .tips-bg {
-  background: #FF9027;
+  background: #FF6A0E;
   padding: 90px 0;
 }
 
@@ -739,7 +739,7 @@ hr {
 .form-subscribe .btn-append {
   border: 0;
   padding: 0 .8rem;
-  background: #FF9027;
+  background: #FF6A0E;
 }
 
 .form-subscribe .btn-append i,
@@ -777,7 +777,7 @@ hr {
 
 .social-icons li a {
   display: block;
-  color: #FF9027;
+  color: #FF6A0E;
 }
 
 .social-icons li a:hover {
@@ -797,7 +797,7 @@ hr {
 .service__singleIcon i,
 .service__singleIcon span {
   font-size: 24px;
-  color: #FF9027;
+  color: #FF6A0E;
 }
 
 .service__single h3 {
@@ -881,7 +881,7 @@ hr {
   position: absolute;
   width: 100%;
   height: 100%;
-  background-color: #FF9027;
+  background-color: #FF6A0E;
   clip-path: polygon(58% 0, 65% 6%, 94% 6%, 94% 38%, 100% 43%, 100% 0);
   left: 10px;
   top: -10px;
@@ -947,9 +947,9 @@ hr {
 
 .owl-theme .owl-dots .owl-dot.active span {
   height: 4px;
-  background: #FF9027;
+  background: #FF6A0E;
   border-radius: 3px;
-  box-shadow: 0px 1px 0px #FF9027;
+  box-shadow: 0px 1px 0px #FF6A0E;
 }
 
 .testimonialCarousel .owl-dots .owl-dot span {
@@ -963,7 +963,7 @@ hr {
 .contact-info__icon i,
 .contact-info__icon span {
   font-size: 20px;
-  color: #FF9027;
+  color: #FF6A0E;
 }
 
 .contact-info h3 {
@@ -987,12 +987,12 @@ hr {
 }
 
 .blog-home-banner h1 span {
-  color: #FF9027;
+  color: #FF6A0E;
 }
 
 .blog-home-banner .primary-btn {
   color: #000;
-  background: #FF9027;
+  background: #FF6A0E;
 }
 
 .blog-home-banner .primary-btn:hover {
@@ -1058,7 +1058,7 @@ hr {
 }
 
 .post-content-area .single-post .meta-details .tags li a:hover {
-  color: #FF9027;
+  color: #FF6A0E;
 }
 
 @media (max-width: 1024px) {
@@ -1084,7 +1084,7 @@ hr {
 .post-content-area .single-post .date a:hover,
 .post-content-area .single-post .view a:hover,
 .post-content-area .single-post .comments a:hover {
-  color: #FF9027;
+  color: #FF6A0E;
 }
 
 .post-content-area .single-post .user-name .lnr,
@@ -1092,7 +1092,7 @@ hr {
 .post-content-area .single-post .view .lnr,
 .post-content-area .single-post .comments .lnr {
   font-weight: 900;
-  color: #FF9027;
+  color: #FF6A0E;
 }
 
 .post-content-area .single-post .feature-img img {
@@ -1124,9 +1124,9 @@ hr {
 }
 
 .post-content-area .single-post .primary-btn:hover {
-  background: #FF9027 !important;
+  background: #FF6A0E !important;
   color: #000000 !important;
-  border: 1px solid #FF9027;
+  border: 1px solid #FF6A0E;
 }
 
 .posts-list .posts-title h3 {
@@ -1138,7 +1138,7 @@ hr {
 }
 
 .posts-list .posts-title h3:hover {
-  color: #FF9027;
+  color: #FF6A0E;
 }
 
 .blog-pagination {
@@ -1160,7 +1160,7 @@ hr {
 }
 
 .blog-pagination .page-item.active .page-link {
-  background-color: #FF9027;
+  background-color: #FF6A0E;
   border-color: transparent;
   color: #fff;
 }
@@ -1187,7 +1187,7 @@ hr {
 .blog-pagination .page-link:hover {
   color: #fff;
   text-decoration: none;
-  background-color: #FF9027;
+  background-color: #FF6A0E;
   border-color: #eee;
 }
 
@@ -1300,11 +1300,11 @@ hr {
 }
 
 .widget-wrap .user-info-widget .social-links li a:hover {
-  color: #FF9027;
+  color: #FF6A0E;
 }
 
 .widget-wrap .popular-post-widget .popular-title {
-  background: #FF9027;
+  background: #FF6A0E;
   color: #262533;
   text-align: center;
   padding: 6px 0px;
@@ -1340,7 +1340,7 @@ hr {
 }
 
 .widget-wrap .popular-post-widget .single-post-list .details h6:hover {
-  color: #FF9027;
+  color: #FF6A0E;
 }
 
 .widget-wrap .popular-post-widget .single-post-list .details p {
@@ -1352,7 +1352,7 @@ hr {
 }
 
 .widget-wrap .post-category-widget .category-title {
-  background: #FF9027;
+  background: #FF6A0E;
   color: #262533;
   text-align: center;
   padding: 6px 0px;
@@ -1386,15 +1386,15 @@ hr {
 }
 
 .widget-wrap .post-category-widget .cat-list li:hover {
-  border-color: #FF9027;
+  border-color: #FF6A0E;
 }
 
 .widget-wrap .post-category-widget .cat-list li:hover p {
-  color: #FF9027;
+  color: #FF6A0E;
 }
 
 .widget-wrap .newsletter-widget .newsletter-title {
-  background: #FF9027;
+  background: #FF6A0E;
   color: #262533;
   text-align: center;
   padding: 6px 0px;
@@ -1411,7 +1411,7 @@ hr {
 }
 
 .widget-wrap .newsletter-widget .bbtns {
-  background: #FF9027;
+  background: #FF6A0E;
   color: #11213B;
   font-size: 12px;
   font-weight: 500;
@@ -1474,7 +1474,7 @@ hr {
 }
 
 .widget-wrap .tag-cloud-widget .tagcloud-title {
-  background: #FF9027;
+  background: #FF6A0E;
   color: #262533;
   text-align: center;
   padding: 6px 0px;
@@ -1495,7 +1495,7 @@ hr {
 }
 
 .widget-wrap .tag-cloud-widget ul li:hover {
-  background: #FF9027;
+  background: #FF6A0E;
 }
 
 .widget-wrap .tag-cloud-widget ul li a {
@@ -1531,7 +1531,7 @@ hr {
 }
 
 .single-post-area .social-links li a:hover {
-  color: #FF9027;
+  color: #FF6A0E;
 }
 
 .single-post-area .quotes {
@@ -1716,9 +1716,9 @@ hr {
 }
 
 .comments-area .btn-reply:hover {
-  background-color: #FF9027;
+  background-color: #FF6A0E;
   color: #000000;
-  border: 1px solid #FF9027;
+  border: 1px solid #FF6A0E;
 }
 
 .comment-form {
@@ -1796,7 +1796,7 @@ hr {
   display: inline-block;
   margin-top: 20px;
   color: #000000;
-  background: #FF9027;
+  background: #FF6A0E;
   padding: 12px 20px;
   font-size: 12px;
   font-weight: 500;
@@ -1823,7 +1823,7 @@ hr {
 
 .generic-banner {
   margin-top: 60px;
-  background-color: #FF9027;
+  background-color: #FF6A0E;
   text-align: center;
 }
 
@@ -1924,7 +1924,7 @@ sup,
 sub,
 u,
 del {
-  color: #FF9027;
+  color: #FF6A0E;
 }
 
 h1 {
@@ -2070,25 +2070,25 @@ h6 {
 
 .genric-btn.primary {
   color: #000;
-  background: #FF9027;
+  background: #FF6A0E;
   border: 1px solid transparent;
 }
 
 .genric-btn.primary:hover {
-  color: #FF9027;
-  border: 1px solid #FF9027;
+  color: #FF6A0E;
+  border: 1px solid #FF6A0E;
   background: #fff;
 }
 
 .genric-btn.primary-border {
-  color: #FF9027;
-  border: 1px solid #FF9027;
+  color: #FF6A0E;
+  border: 1px solid #FF6A0E;
   background: #fff;
 }
 
 .genric-btn.primary-border:hover {
   color: #fff;
-  background: #FF9027;
+  background: #FF6A0E;
   border: 1px solid transparent;
 }
 
@@ -2224,7 +2224,7 @@ h6 {
 .generic-blockquote {
   padding: 30px 50px 30px 30px;
   background: #fff;
-  border-left: 2px solid #FF9027;
+  border-left: 2px solid #FF6A0E;
 }
 
 @media (max-width: 991px) {
@@ -2365,7 +2365,7 @@ h6 {
   position: absolute;
   width: 14px;
   height: 14px;
-  border: 3px solid #FF9027;
+  border: 3px solid #FF6A0E;
   background: #fff;
   top: 4px;
   left: 0;
@@ -2378,7 +2378,7 @@ h6 {
 
 .ordered-list li {
   list-style-type: decimal-leading-zero;
-  color: #FF9027;
+  color: #FF6A0E;
   font-weight: 500;
   line-height: 1.82em !important;
 }
@@ -2391,7 +2391,7 @@ h6 {
 .ordered-list-alpha li {
   margin-left: 30px;
   list-style-type: lower-alpha;
-  color: #FF9027;
+  color: #FF6A0E;
   font-weight: 500;
   line-height: 1.82em !important;
 }
@@ -2404,7 +2404,7 @@ h6 {
 .ordered-list-roman li {
   margin-left: 30px;
   list-style-type: lower-roman;
-  color: #FF9027;
+  color: #FF6A0E;
   font-weight: 500;
   line-height: 1.82em !important;
 }
@@ -2476,7 +2476,7 @@ h6 {
 
 .single-input-primary:focus {
   outline: none;
-  border: 1px solid #FF9027;
+  border: 1px solid #FF6A0E;
 }
 
 .single-input-accent {
@@ -2537,7 +2537,7 @@ h6 {
   width: 15px;
   height: 15px;
   border-radius: 50%;
-  background: #FF9027;
+  background: #FF6A0E;
   transition: all 0.2s;
   -webkit-transition: all 0.2s;
   -moz-transition: all 0.2s;
@@ -2627,7 +2627,7 @@ h6 {
 }
 
 .primary-switch input:checked+label:before {
-  background: #FF9027;
+  background: #FF6A0E;
 }
 
 .confirm-switch {
@@ -2979,12 +2979,12 @@ h6 {
 }
 
 .default-select .nice-select .list .option.selected {
-  color: #FF9027;
+  color: #FF6A0E;
   background: transparent;
 }
 
 .default-select .nice-select .list .option:hover {
-  color: #FF9027;
+  color: #FF6A0E;
   background: transparent;
 }
 
@@ -3041,12 +3041,12 @@ h6 {
 }
 
 .form-select .nice-select .list .option.selected {
-  color: #FF9027;
+  color: #FF6A0E;
   background: transparent;
 }
 
 .form-select .nice-select .list .option:hover {
-  color: #FF9027;
+  color: #FF6A0E;
   background: transparent;
 }
 
@@ -3104,7 +3104,7 @@ h6 {
 }
 
 .footer__bottom p a {
-  color: #FF9027;
+  color: #FF6A0E;
 }
 
 .footer__bottom.top-border {
@@ -3129,8 +3129,8 @@ h6 {
 
 /* Стили для первичных кнопок */
 .btn-primary {
-  background-color: #FF9027 !important;
-  border-color: #FF9027 !important;
+  background-color: #FF6A0E !important;
+  border-color: #FF6A0E !important;
 }
 
 /* Стили для кнопок действий */
@@ -3182,16 +3182,16 @@ h6 {
 }
 
 .btn-outline-primary {
-  color: #FF9027;
+  color: #FF6A0E;
   background-color: transparent;
   background-image: none;
-  border-color: #FF9027;
+  border-color: #FF6A0E;
 }
 
 .btn-outline-primary:hover {
   color: #fff;
-  background-color: #FF9027;
-  border-color: #FF9027;
+  background-color: #FF6A0E;
+  border-color: #FF6A0E;
 }
 
 .btn-sm {
@@ -3272,19 +3272,19 @@ header {
 /* ---------- Исправление видимости кнопок на светлом фоне ---------- */
 /* Синяя обводка + синий текст */
 .btn-outline-primary {
-  color: #FF9027 !important;
-  border-color: #FF9027 !important;
+  color: #FF6A0E !important;
+  border-color: #FF6A0E !important;
   background-color: transparent !important;
 }
 
 .btn-outline-primary:hover {
   color: #fff !important;
-  background-color: #FF9027 !important;
+  background-color: #FF6A0E !important;
 }
 
 /* Ссылочные кнопки (FAQ, аккордеоны и др.) */
 .btn-link {
-  color: #FF9027 !important;
+  color: #FF6A0E !important;
 }
 
 .btn-link:hover {

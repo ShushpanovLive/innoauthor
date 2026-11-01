@@ -62,13 +62,14 @@ class Project(models.Model):
         ('launch', 'Рабочая модель'),
         ('ready_project', 'Готовый проект'),
         ('business', 'Бизнес'),  # ← НОВОЕ
+	('prospective', 'Перспективный'),
     ]
     
     title = models.CharField('Название проекта', max_length=200)
     description = models.TextField('Описание проекта')
     author = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='Автор', related_name='authored_projects')
     create_datetime = models.DateTimeField('Дата создания', auto_now_add=True)
-    project_photo = models.ImageField('Фото проекта', upload_to='static/img/projects', blank=True)
+    project_photo = models.ImageField('Фото проекта', upload_to='projects/', blank=True)
     slug = models.SlugField('URL', unique=True)
     tags = models.ManyToManyField(Tag, verbose_name='Теги', related_name='projects')
     team = models.ManyToManyField(User, through=ProjectInvitation, verbose_name='Команда', related_name='projects')

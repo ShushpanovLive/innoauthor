@@ -8,3 +8,7 @@ whitenoise>=6.0.0
 psycopg2-binary
 transliterate
 gunicorn==20.1.0
+celery==5.3.4
+redis==5.0.1
+reportlab
+qrcode[pil]

@@ -77,31 +77,58 @@
 			<br>
 			
 			<div class="section-intro">
-				<h4 class="section-intro__title"><font color="#FF9027">Специалисты</font></h4>
-				<h2 class="section-intro__subtitle bottom-border">Наши Юристы</h2>
+				<h4 class="section-intro__title"><font color="#FF9027">Раздел</font></h4>
+				<h2 class="section-intro__subtitle bottom-border">Наши Эксперты</h2>
 			</div>
-			
+
+
 			<div class="row">
-				<div class="col-sm-6 col-lg-4">
-				
-				<a href="#" target="_blank">
-				  <div class="media service__single">
-					<span class="service__singleIcon"><i class="ti-package"></i></span>
-					<div class="media-body">
-					  <h3><font color="#ffffff">Шушпанов Михаил Константинович</font></h3>
-					  <p><font color="#ffffff">Юристконсультант</font>
-					  </p>
-					</div>
-				  </div>
-				  
-				  </a>
-				</div>
-        
-				
-        
-			</div>
-			<br>
+    {% for expert in experts %}
+    <div class="col-sm-6 col-lg-4">
+        <div class="media service__single">
+            <div class="media-body">
+                <img class="img-fluid" src="{% if expert.photo %}{{ expert.photo.url }}{% else %}{% static 'img/exper8.png' %}{% endif %}" alt="{{ expert.name }}">
+                <br>
+                <span class="service__singleIcon"></span>
+                <h3><font color="#ffffff"><b>{{ expert.name }}</b></font></h3>
+                <p><font color="#ffffff">{{ expert.text }}</font></p>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>                                                               
+                                        
 			
+
+	<br>
+           
+
+		 <div class="section-intro">
+                                <h4 class="section-intro__title"><font color="#FF9027">Раздел</font></h4>
+                                <h2 class="section-intro__subtitle bottom-border">Специалисты</h2>
+                        </div> 
+		
+		 <div class="row">
+                                <div class="col-sm-6 col-lg-4">
+
+
+                                  <div class="media service__single">
+
+                                        <div class="media-body">
+                                          <img class="img-fluid" src="{% static 'img/topmaanger2.png'%}"   alt=">
+                                                <br>
+                                           <span class="service__singleIcon""></span>
+                                        <h3><font color="#ffffff"><b>Андреев Алексей <br></b></font></h3>
+
+                                         <p><font color="#ffffff">Отвечает за иницииацию и развитие партнерства, обеспечение эффективной реализации и роста партнерских проектов
+                                          </p>
+                                        </div>
+                                  </div>
+		<div>
+
+
+	<br>
+	
 			<div class="section-intro">
 				<h4 class="section-intro__title"><font color="#FF9027">Раздел</font></h4>
 				<h2 class="section-intro__subtitle bottom-border">Благодарность</h2>
@@ -126,6 +153,9 @@
 	</section>
 
 
+
+
+
 				<div class="progress-table-wrap">
 					<font color="#11213B">
 					<div class="progress-table">
@@ -137,7 +167,7 @@
 						<div class="table-row">
 				<div class="serial">01</div>
 				<div class="country"> Россия</div>
-				<div class="visit">100</div>
+				<div class="visit">{{ users_count }}</div>
 				<div class="percentage">
 					<div class="progress">
 
@@ -146,7 +176,60 @@
 					</div>
 				</div>
 			</div>
-						
+			
+				<div class="table-row">
+				<div class="serial">02</div>
+				<div class="country"> Республика Беларусь</div>
+				<div class="visit">2</div>
+				<div class="percentage">
+					<div class="progress">
+
+						<div class="progress-bar color-1" role="progressbar" style="width: 80%" aria-valuenow="50"
+							aria-valuemin="80" aria-valuemax="50"></div>
+					</div>
+				</div>
+			</div>
+			
+			<div class="table-row">
+				<div class="serial">03</div>
+				<div class="country"> Республика Абхазия</div>
+				<div class="visit">3</div>
+				<div class="percentage">
+					<div class="progress">
+
+						<div class="progress-bar color-1" role="progressbar" style="width: 80%" aria-valuenow="50"
+							aria-valuemin="80" aria-valuemax="50"></div>
+					</div>
+				</div>
+			</div>
+
+			 <div class="table-row">
+                                <div class="serial">04</div>
+                                <div class="country"> Республика Армения</div>
+                                <div class="visit">1</div>
+                                <div class="percentage">
+                                        <div class="progress">
+
+                                                <div class="progress-bar color-1" role="progressbar" style="width: 80%" aria-valuenow="50"
+                                                        aria-valuemin="80" aria-valuemax="50"></div>
+                                        </div>
+                                </div>
+                        </div>
+
+                        <div class="table-row">
+				<div class="serial">05</div>
+				<div class="country"> Китай</div>
+				<div class="visit">2</div>
+				<div class="percentage">
+					<div class="progress">
+
+						<div class="progress-bar color-1" role="progressbar" style="width: 80%" aria-valuenow="50"
+							aria-valuemin="80" aria-valuemax="50"></div>
+					</div>
+				</div>
+			</div>
+			
+			
 					</div>
 					</font>
 				</div>
@@ -259,3 +342,4 @@
 	</script>
 </body>
 </html>
+

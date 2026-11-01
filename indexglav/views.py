@@ -10,7 +10,7 @@ from django.contrib import messages
 from django.contrib.contenttypes.models import ContentType
 from comments.forms import CommentForm
 from comments.models import Comment
-
+from .models import Expert
 
 def indexglav(request):
     tag_slug = request.GET.get('tag')
@@ -73,7 +73,7 @@ def news_detail(request, slug):
     return render(request, 'news_detail.html', context)
 
 def liderplatform1(request):
-    return render(request, 'glavfooter/liderplatform.html')
+    return render(request, 'liderplatform.html', {'experts': Expert.objects.all()})
     
 def workshop1(request):
     return render(request, 'glavfooter/workshop.html')
@@ -94,3 +94,11 @@ def logout_view(request):
     logout(request)
     return redirect('startpage:home')
 
+def liderplatform(request):
+    from users.models import User  # Твоя кастомная модель!
+    experts = Expert.objects.all()
+    users_count = User.objects.count()  # Твои пользователи!
+    return render(request, 'liderplatform.html', {
+        'experts': experts,
+        'users_count': users_count
+    })

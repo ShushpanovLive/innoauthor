@@ -1,3 +1,6 @@
+# docker-compose.yml для InnoAuthor (новый)
+version: '3.9'
+
 services:
   web:
     build:
@@ -15,16 +18,12 @@ services:
     depends_on:
       innauthor_db:
         condition: service_healthy
-      redis:
-        condition: service_started
     environment:
       - POSTGRES_DB=innauthor_db
       - POSTGRES_USER=innauthor_user
       - POSTGRES_PASSWORD=innauthor_password
       - POSTGRES_HOST=innauthor_db
       - POSTGRES_PORT=5432
-      - REDIS_HOST=redis
-      - REDIS_PORT=6379
     env_file:
       - .env
     dns:
@@ -38,6 +37,7 @@ services:
     container_name: innauthor_db
     volumes:
       - postgres_data:/var/lib/postgresql/data
+
     environment:
       - POSTGRES_DB=innauthor_db
       - POSTGRES_USER=innauthor_user
@@ -52,17 +52,11 @@ services:
     networks:
       - fastprogs_network
 
-  redis:
-    image: redis:7-alpine
-    container_name: innoauthor-redis
-    ports:
-      - "6379:6379"
-    networks:
-      - fastprogs_network
-
 networks:
   fastprogs_network:
     driver: bridge
 
 volumes:
   postgres_data:
+    external: true
+    name: innoauthor_postgres_data

@@ -23,3 +23,4 @@ class CustomUserAdmin(UserAdmin):
             'fields': ('email', 'username', 'password1', 'password2', 'first_name', 'last_name', 'patronymic', 'about', 'avatar'),
         }),
     )
+

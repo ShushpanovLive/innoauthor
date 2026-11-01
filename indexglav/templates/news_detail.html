@@ -111,8 +111,8 @@
                                             alt="{{ related.namepost }}">
                                         {% endif %}
                                         <div class="card-body">
-                                            <h5 class="card-title">{{ related.namepost }}</h5>
-                                            <p class="card-text">{{ related.soderjanie|truncatechars:100 }}</p>
+                                            <h5 class="card-title"><font color="#11213B">{{ related.namepost }}</font></h5>
+                                            <p class="card-text"><font color="#11213B">{{ related.soderjanie|truncatechars:100 }}</font></p>
                                             <a href="{% url 'indexglav:news_detail' related.slug %}"
                                                 class="btn btn-primary btn-sm">Читать</a>
                                         </div>

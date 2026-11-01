@@ -42,7 +42,7 @@
                         {% csrf_token %}
                         <div class="form-group">
                             <label for="title"><font color="#11213B">Название проекта*</font></label>
-                            <input type="text" class="form-control" id="title" name="title" required maxlength="50" {% if form_data %}value="{{ form_data.title }}" {% endif %}>
+                            <input type="text" class="form-control" id="title" name="title" required maxlength="50" pattern=".*[A-Za-z0-9A-Яа-яЁё].*" {% if form_data %}value="{{ form_data.title }}" {% endif %}>
                             <small class="form-text text-muted">
                                 Осталось символов: <span id="titleCharsLeft">50</span> из 50
                             </small>
@@ -89,6 +89,65 @@
                             <input type="checkbox" class="form-check-input" id="is_private" name="is_private" {% if form_data and form_data.is_private %}checked{% endif %}>
                             <label class="form-check-label" for="is_private"><font color="#11213B">Приватный</font></label>
                         </div>
+
+
+<hr>
+						
+						<div class="mb-4" style="margin-top: 20px; margin-bottom: 20px;">
+    <div style="display: flex; align-items: flex-start; gap: 8px; line-height: 1.4; margin-bottom: 12px;">
+        <input
+            type="checkbox"
+            id="consent_accuracy"
+            name="consent_accuracy"
+            value="1"
+            required
+            style="width: 16px; height: 16px; margin-top: 3px; flex-shrink: 0; cursor: pointer;"
+        >
+        <label
+            for="consent_accuracy"
+            style="margin: 0; color: #11213B; cursor: pointer;"
+        >
+            Подтверждаю достоверность сведений, указанных в заявке*
+        </label>
+    </div>
+
+    <div style="display: flex; align-items: flex-start; gap: 8px; line-height: 1.4; margin-bottom: 12px;">
+        <input
+            type="checkbox"
+            id="consent_rights"
+            name="consent_rights"
+            value="1"
+            required
+            style="width: 16px; height: 16px; margin-top: 3px; flex-shrink: 0; cursor: pointer;"
+        >
+        <label
+            for="consent_rights"
+            style="margin: 0; color: #11213B; cursor: pointer;"
+        >
+            Подтверждаю, что имею права на представленные материалы либо необходимые разрешения на их использование*
+        </label>
+    </div>
+
+    <div style="display: flex; align-items: flex-start; gap: 8px; line-height: 1.4;">
+        <input
+            type="checkbox"
+            id="consent"
+            name="consent"
+            value="1"
+            required
+            style="width: 16px; height: 16px; margin-top: 3px; flex-shrink: 0; cursor: pointer;"
+        >
+        <label
+            for="consent"
+            style="margin: 0; color: #11213B; cursor: pointer;"
+        >
+            Я даю согласие на обработку персональных данных в соответствии с <a href="/static/documents/Согласие на обработку персональных данных.docx"  download="Согласие на обработку персональных данных.docx">политикой обработки персональных данных</a>*
+        </label>
+    </div>
+
+    
+</div>
+
 
                         <div class="form-group">
                             <button type="submit" class="btn btn-primary">

@@ -18,6 +18,37 @@
 	<link rel="stylesheet" href="{% static 'vendor/owl-carousel/owl.carousel.min.css'%}">
 	<link rel="stylesheet" href="{% static 'vendor/bootstrap/bootstrap.min.css'%}">
 	<link rel="stylesheet" href="{% static 'css/style.css' %}">
+<style>
+	.cookie-banner {
+	  display: none;
+	  position: fixed;
+	  bottom: 15px;
+	  left: 50%;
+	  max-width: 90%;
+	  color: #fff;
+	  transform: translateX(-50%);
+	  padding: 20px;
+	  background: #ffffff;
+	  border: 1px solid #ccc;
+	  border-radius: 8px;
+	  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+	  z-index: 9999;
+	}
+
+	.cookie-banner.show {
+	  display: block;
+	}
+
+	.cookie-accept {
+	  margin-top: 10px;
+	  padding: 8px 16px;
+	  background: #FF6A0E;
+	  color: #fff;
+	  border: none;
+	  border-radius: 4px;
+	  cursor: pointer;
+	}
+</style>
 </head>
 
 <body>
@@ -106,7 +137,36 @@
 
 
 	<!-- start footer Area -->
+<!-- start footer Area -->
 
+	<!-- Cookie banner -->
+<div id="cookie_note" class="cookie-banner"><font color="#ffffff">
+  <c>
+    Мы используем файлы cookies для улучшения работы сайта.
+    Продолжая использовать наш сайт, вы соглашаетесь с условиями
+    использования файлов cookies.
+    <a href="/privacy-policy" target="_blank">Политика конфиденциальности</a>
+  </c></font>
+  <button id="cookie_accept" class="cookie-accept">Я согласен</button>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const banner = document.getElementById('cookie_note');
+  const acceptBtn = document.getElementById('cookie_accept');
+  
+  // Проверяем, было ли уже дано согласие
+  if (!localStorage.getItem('cookie_accepted')) {
+    banner.classList.add('show');
+  }
+  
+  // Обработка нажатия на кнопку
+  acceptBtn.addEventListener('click', function() {
+    localStorage.setItem('cookie_accepted', 'true');
+    banner.classList.remove('show');
+  });
+});
+</script>
 
 
 	<script src="vendor/jquery/jquery-3.2.1.min.js"></script>
